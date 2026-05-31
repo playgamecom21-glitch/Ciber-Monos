@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciber Monkey Solutions — Soluciones Tecnológicas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+
+    :root {
+      --sky:    #e8f4fd;
+      --sky2:   #cce8f9;
+      --sky3:   #9dd0f2;
+      --blue:   #5ba4d4;
+      --blue2:  #3d8cbf;
+      --blue3:  #2070a8;
+      --ice:    #f0f8ff;
+      --mint:   #e3f6f5;
+      --mint2:  #b8e8e6;
+      --teal:   #5bbcba;
+      --lav:    #eef1fb;
+      --lav2:   #d4dbf7;
+      --indigo: #7b8fd4;
+      --slate:  #a8c4d8;
+      --fog:    #ddeaf5;
+      --white:  #ffffff;
+      --text:   #1e3a52;
+      --text2:  #5a7f9a;
+      --text3:  #8daec4;
+      --card:   #f7fbff;
+      --card2:  #eef5fc;
+      --border: rgba(91,164,212,.18);
+      --border2:rgba(91,164,212,.32);
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --r: 16px;
+      --r2: 24px;
+    }
+
+    html { scroll-behavior: smooth }
+
+    body {
+      background: var(--ice);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMACIONES GLOBALES ─── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(32px) }
+      to   { opacity:1; transform:translateY(0) }
+    }
+    @keyframes fadeIn {
+      from { opacity:0 }
+      to   { opacity:1 }
+    }
+    @keyframes float {
+      0%,100% { transform:translateY(0) }
+      50%      { transform:translateY(-12px) }
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(91,164,212,.40) }
+      70%  { box-shadow: 0 0 0 16px rgba(91,164,212,0) }
+      100% { box-shadow: 0 0 0 0  rgba(91,164,212,0) }
+    }
+    @keyframes blobFloat {
+      0%,100% { border-radius:60% 40% 30% 70% / 60% 30% 70% 40%; transform:translate(0,0) scale(1) }
+      33%      { border-radius:30% 60% 70% 40% / 50% 60% 30% 60%; transform:translate(10px,-14px) scale(1.03) }
+      66%      { border-radius:50% 60% 30% 40% / 40% 50% 60% 50%; transform:translate(-8px,8px) scale(.97) }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -600px 0 }
+      100% { background-position:  600px 0 }
+    }
+    @keyframes slideInLeft {
+      from { opacity:0; transform:translateX(-40px) }
+      to   { opacity:1; transform:translateX(0) }
+    }
+    @keyframes slideInRight {
+      from { opacity:0; transform:translateX(40px) }
+      to   { opacity:1; transform:translateX(0) }
+    }
+    @keyframes zoomIn {
+      from { opacity:0; transform:scale(.9) }
+      to   { opacity:1; transform:scale(1) }
+    }
+    @keyframes barFill {
+      from { width: 0 }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg) }
+    }
+    @keyframes wiggle {
+      0%,100% { transform: rotate(0deg) }
+      25% { transform: rotate(-8deg) }
+      75% { transform: rotate(8deg) }
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity:0;
+      transform:translateY(34px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.in { opacity:1; transform:translateY(0) }
+    .reveal-left  { opacity:0; transform:translateX(-34px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1) }
+    .reveal-left.in { opacity:1; transform:translateX(0) }
+    .reveal-right { opacity:0; transform:translateX(34px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1) }
+    .reveal-right.in { opacity:1; transform:translateX(0) }
+    .reveal-zoom  { opacity:0; transform:scale(.92); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1) }
+    .reveal-zoom.in  { opacity:1; transform:scale(1) }
+
+    .reveal-delay-1 { transition-delay:.08s }
+    .reveal-delay-2 { transition-delay:.18s }
+    .reveal-delay-3 { transition-delay:.28s }
+    .reveal-delay-4 { transition-delay:.38s }
+    .reveal-delay-5 { transition-delay:.48s }
+    .reveal-delay-6 { transition-delay:.58s }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: rgba(240,248,255,.88);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .9rem 2.5rem;
+      transition: box-shadow .3s, background .3s;
+    }
+    nav.scrolled {
+      box-shadow: 0 6px 40px rgba(91,164,212,.13);
+      background: rgba(240,248,255,.97);
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+    .logo span { color: var(--blue) }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(91,164,212,.3);
+    }
+    .nav-links {
+      display: flex; gap: 1.6rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: .87rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      transition: color .2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content:'';
+      position:absolute;
+      bottom:-4px; left:0; right:100%;
+      height:2px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      border-radius:2px;
+      transition: right .3s cubic-bezier(.22,1,.36,1);
+    }
+    .nav-links a:hover { color: var(--blue) }
+    .nav-links a:hover::after { right:0 }
+
+    /* hamburger */
+    .hamburger {
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+      padding:6px;
+      background:none;
+      border:none;
+    }
+    .hamburger span {
+      width:24px; height:2px;
+      background:var(--text);
+      border-radius:2px;
+      transition: all .3s;
+      display:block;
+    }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg) }
+    .hamburger.open span:nth-child(2) { opacity:0 }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg) }
+
+    .mobile-menu {
+      display:none;
+      position:fixed;
+      top:65px; left:0; right:0;
+      background:rgba(240,248,255,.97);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+      z-index:199;
+      padding:1.5rem 2rem;
+      flex-direction:column;
+      gap:1rem;
+      animation: fadeUp .3s ease;
+    }
+    .mobile-menu.show { display:flex }
+    .mobile-menu a {
+      color:var(--text);
+      text-decoration:none;
+      font-size:1.1rem;
+      font-weight:600;
+      padding:.5rem 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      color: #fff;
+      padding: .52rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: .87rem;
+      text-decoration: none;
+      transition: all .25s;
+      box-shadow: 0 4px 16px rgba(91,164,212,.35);
+      letter-spacing:.02em;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(91,164,212,.50);
+    }
+
+    /* ─── HERO CAROUSEL ─── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      overflow: hidden;
+    }
+
+    /* Real image slides */
+    .carousel-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      transition: transform 1.1s cubic-bezier(.77,0,.18,1);
+    }
+    .carousel-slide {
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .carousel-slide img {
+      width:100%; height:100%;
+      object-fit:cover;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+      filter: brightness(.6) saturate(1.1);
+    }
+    .carousel-slide.active img {
+      transform: scale(1);
+    }
+
+    /* overlay gradient */
+    .carousel-slide::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        110deg,
+        rgba(0,20,45,.75) 0%,
+        rgba(0,30,60,.45) 50%,
+        rgba(0,40,80,.1) 100%
+      );
+    }
+
+    /* text overlay */
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      padding: 0 5rem;
+    }
+    .slide-text {
+      max-width: 680px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s .4s ease, transform .8s .4s cubic-bezier(.22,1,.36,1);
+    }
+    .carousel-slide.active .slide-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(91,164,212,.25);
+      border: 1px solid rgba(91,188,186,.45);
+      backdrop-filter: blur(10px);
+      color: #a8d8f8;
+      padding: .38rem 1rem;
+      border-radius: 50px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .slide-text h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      color: #fff;
+      letter-spacing: -.03em;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,.3);
+    }
+    .slide-text h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--sky3), var(--mint2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .slide-text p {
+      color: rgba(255,255,255,.8);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin-bottom: 2.2rem;
+      line-height: 1.7;
+    }
+    .slide-btns { display: flex; gap: 1rem; flex-wrap: wrap }
+    .btn-glass {
+      background: rgba(255,255,255,.18);
+      border: 1.5px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: .75rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .95rem;
+      transition: all .25s;
+    }
+    .btn-glass:hover {
+      background: rgba(255,255,255,.28);
+      transform: translateY(-2px);
+    }
+    .btn-primary-hero {
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      color: #fff;
+      padding: .75rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .95rem;
+      transition: all .25s;
+      box-shadow: 0 6px 24px rgba(91,164,212,.50);
+      animation: pulse-ring 2.8s ease infinite;
+    }
+    .btn-primary-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(91,164,212,.65);
+    }
+
+    /* carousel controls */
+    .carousel-dots {
+      position: absolute;
+      bottom: 2.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: .65rem;
+      z-index: 10;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.35);
+      cursor: pointer;
+      transition: all .4s cubic-bezier(.22,1,.36,1);
+      border: none;
+      cursor: pointer;
+    }
+    .dot.active {
+      background: #fff;
+      width: 30px;
+      border-radius: 4px;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255,255,255,.18);
+      border: 1.5px solid rgba(255,255,255,.3);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .25s;
+    }
+    .carousel-arrow:hover {
+      background: rgba(255,255,255,.32);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-arrow.left { left: 2.5rem }
+    .carousel-arrow.right { right: 2.5rem }
+
+    /* progress bar */
+    .carousel-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      z-index: 10;
+      border-radius: 0 3px 3px 0;
+      transition: width .1s linear;
+    }
+
+    /* floating mini cards */
+    .hero-floaters {
+      position: absolute;
+      right: 4.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      animation: float 5s ease-in-out infinite;
+    }
+    .floater {
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 16px;
+      padding: .95rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      min-width: 210px;
+      transition: transform .2s;
+    }
+    .floater:hover { transform: translateX(-5px) }
+    .f-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .f-icon.a { background: rgba(91,164,212,.28) }
+    .f-icon.b { background: rgba(91,188,186,.28) }
+    .f-icon.c { background: rgba(123,143,212,.28) }
+    .f-label { font-size: .74rem; color: rgba(255,255,255,.65); font-weight: 600; letter-spacing:.03em }
+    .f-val { font-size: .98rem; font-weight: 800; color: #fff }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      right: 4.5rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.5);
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .scroll-hint .wheel {
+      width: 24px; height: 38px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 5px;
+    }
+    .scroll-hint .wheel::before {
+      content:'';
+      width:4px; height:8px;
+      background:#fff;
+      border-radius:2px;
+      animation: float 1.8s ease-in-out infinite;
+      opacity:.6;
+    }
+
+    /* ─── SECTIONS GENERAL ─── */
+    section { padding: 7rem 2rem }
+    .container { max-width: 1140px; margin: 0 auto }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: .9rem;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+    }
+    .section-label::before {
+      content:'';
+      display:inline-block;
+      width:20px; height:2px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      border-radius:2px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -.03em;
+    }
+    .section-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-sub {
+      color: var(--text2);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-bottom: 3.5rem;
+      line-height: 1.75;
+    }
+
+    /* ─── STATS BAR ─── */
+    #stats {
+      background: linear-gradient(135deg, var(--blue3), var(--teal));
+      padding: 3.5rem 2rem;
+    }
+    .stats-grid {
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:2rem;
+    }
+    .stat-item {
+      text-align:center;
+      color:#fff;
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+    }
+    .stat-item.in { opacity:1; transform:none }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight:800;
+      letter-spacing:-.04em;
+      line-height:1;
+      margin-bottom:.3rem;
+    }
+    .stat-label { font-size:.88rem; opacity:.78; font-weight:600; letter-spacing:.05em }
+
+    /* ─── SERVICIOS ─── */
+    #servicios { background: var(--white) }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 2.2rem 2rem;
+      transition: all .4s cubic-bezier(.22,1,.36,1);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,rgba(91,164,212,.04) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .service-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-8px);
+      box-shadow: 0 24px 56px rgba(91,164,212,.16);
+    }
+    .card-top-bar {
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background:linear-gradient(90deg, var(--blue), var(--teal));
+      border-radius: var(--r2) var(--r2) 0 0;
+      transform: scaleX(0);
+      transform-origin:left;
+      transition: transform .45s cubic-bezier(.22,1,.36,1);
+    }
+    .service-card:hover .card-top-bar { transform:scaleX(1) }
+
+    .svc-icon {
+      width:56px; height:56px;
+      border-radius:16px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem;
+      margin-bottom:1.4rem;
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .service-card:hover .svc-icon { transform: scale(1.12) rotate(-6deg) }
+    .svc-icon.cyber   { background:rgba(91,164,212,.12) }
+    .svc-icon.dev     { background:rgba(123,143,212,.12) }
+    .svc-icon.soporte { background:rgba(91,188,186,.12) }
+    .svc-icon.celular { background:rgba(91,164,212,.10) }
+    .svc-icon.web     { background:rgba(168,196,216,.18) }
+    .svc-icon.appmob  { background:rgba(123,143,212,.12) }
+
+    .service-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+    .service-card p {
+      color: var(--text2);
+      font-size: .93rem;
+      line-height: 1.68;
+      margin-bottom: 1.5rem;
+    }
+    .svc-price {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--blue2);
+      padding: .38rem 1rem;
+      background: rgba(91,164,212,.1);
+      border-radius: 50px;
+      display: inline-block;
+      border: 1px solid rgba(91,164,212,.22);
+    }
+
+    /* ─── GALERÍA DE IMÁGENES ─── */
+    #galeria { background: var(--sky) }
+
+    .gallery-grid {
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      grid-template-rows: 250px 250px;
+      gap:1rem;
+    }
+    .gallery-item {
+      border-radius:var(--r2);
+      overflow:hidden;
+      position:relative;
+      cursor:zoom-in;
+    }
+    .gallery-item:first-child {
+      grid-row:1 / 3;
+    }
+    .gallery-item img {
+      width:100%; height:100%;
+      object-fit:cover;
+      transition: transform .7s cubic-bezier(.22,1,.36,1), filter .4s;
+    }
+    .gallery-item:hover img {
+      transform:scale(1.08);
+      filter: brightness(.85) saturate(1.1);
+    }
+    .gallery-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(30,58,82,.65) 0%, transparent 60%);
+      opacity:0;
+      transition: opacity .4s;
+      display:flex; align-items:flex-end;
+      padding:1.2rem 1.4rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity:1 }
+    .gallery-caption {
+      color:#fff;
+      font-size:.88rem;
+      font-weight:600;
+    }
+
+    /* ─── PROCESO ─── */
+    #proceso { background:var(--white) }
+
+    .process-timeline {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:2rem;
+      position:relative;
+    }
+    .process-timeline::before {
+      content:'';
+      position:absolute;
+      top:32px; left:12%; right:12%;
+      height:2px;
+      background:linear-gradient(90deg,var(--blue),var(--teal));
+      z-index:0;
+    }
+    .process-step {
+      text-align:center;
+      position:relative;
+      z-index:1;
+    }
+    .step-num {
+      width:64px; height:64px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      font-family:var(--font-head);
+      font-size:1.3rem;
+      font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.2rem;
+      box-shadow:0 8px 24px rgba(91,164,212,.35);
+      transition:transform .3s;
+    }
+    .process-step:hover .step-num {
+      transform:scale(1.12) rotate(-5deg);
+    }
+    .process-step h4 {
+      font-family:var(--font-head);
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:.5rem;
+    }
+    .process-step p { color:var(--text2); font-size:.88rem; line-height:1.65 }
+
+    /* ─── EQUIPO ─── */
+    #equipo { background:var(--lav) }
+
+    .team-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+    }
+    .team-card {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:2.2rem 1.6rem;
+      text-align:center;
+      transition:all .4s cubic-bezier(.22,1,.36,1);
+      position:relative;
+      overflow:hidden;
+    }
+    .team-card::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:4px;
+      background:linear-gradient(90deg,var(--blue),var(--teal));
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .team-card:hover::before { transform:scaleX(1) }
+    .team-card:hover {
+      border-color:var(--border2);
+      transform:translateY(-6px);
+      box-shadow:0 20px 48px rgba(91,164,212,.14);
+    }
+    .avatar {
+      width:72px; height:72px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-head);
+      font-size:1.4rem;
+      font-weight:800;
+      color:#fff;
+      margin:0 auto 1.1rem;
+      transition:transform .3s, box-shadow .3s;
+      box-shadow:0 6px 20px rgba(91,164,212,.28);
+    }
+    .team-card:hover .avatar {
+      transform:scale(1.1);
+      box-shadow:0 10px 28px rgba(91,164,212,.42);
+    }
+    .team-card h4 { font-family:var(--font-head); font-weight:700; color:var(--text); font-size:1.02rem; margin-bottom:.28rem }
+    .team-role { color:var(--blue); font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.7rem }
+    .team-salary { color:var(--text2); font-size:.85rem; padding:.28rem .8rem; background:rgba(91,164,212,.08); border-radius:50px; display:inline-block; margin-bottom:.9rem }
+    .skills-list { display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center }
+    .skill-tag { background:rgba(123,143,212,.10); color:var(--indigo); padding:.22rem .65rem; border-radius:50px; font-size:.72rem; font-weight:600; border:1px solid rgba(123,143,212,.2) }
+
+    /* ─── PLAN DE NEGOCIO ─── */
+    #plan { background:var(--sky) }
+
+    .plan-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.4rem;
+      margin-bottom:2rem;
+    }
+    .plan-card {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:1.8rem;
+      transition:transform .3s,box-shadow .3s;
+    }
+    .plan-card:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(91,164,212,.13) }
+    .plan-card h4 {
+      font-family:var(--font-head);
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:1.1rem;
+      display:flex; align-items:center; gap:.6rem;
+      padding-bottom:.8rem;
+      border-bottom:1px solid var(--border);
+    }
+    .plan-row {
+      display:flex;
+      justify-content:space-between;
+      padding:.45rem 0;
+      border-bottom:1px solid rgba(91,164,212,.08);
+      font-size:.88rem;
+    }
+    .plan-row:last-child { border-bottom:none; padding-top:.7rem }
+    .plan-row span:first-child { color:var(--text2) }
+    .plan-row span:last-child { color:var(--text); font-weight:500; text-align:right }
+    .highlight-val { color:var(--blue2) !important; font-weight:700 !important }
+    .plan-note {
+      background:rgba(91,164,212,.07);
+      border-left:3px solid var(--blue);
+      border-radius:0 var(--r) var(--r) 0;
+      padding:1rem 1.3rem;
+      color:var(--text2);
+      font-size:.9rem;
+    }
+
+    /* ─── INFRAESTRUCTURA ─── */
+    #tecnico { background:var(--white) }
+
+    .tech-table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:.88rem;
+    }
+    .tech-table th {
+      background:rgba(91,164,212,.10);
+      color:var(--blue2);
+      padding:.9rem 1.1rem;
+      text-align:left;
+      font-weight:700;
+      font-size:.76rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      border-bottom:2px solid rgba(91,164,212,.2);
+    }
+    .tech-table td {
+      padding:.75rem 1.1rem;
+      border-bottom:1px solid rgba(91,164,212,.08);
+      color:var(--text2);
+      transition:background .2s;
+    }
+    .tech-table tr:hover td { background:rgba(91,164,212,.04); color:var(--text) }
+    .badge { display:inline-block; padding:.22rem .65rem; border-radius:50px; font-size:.72rem; font-weight:700 }
+    .badge-cy  { background:rgba(91,164,212,.12); color:var(--blue2) }
+    .badge-net { background:rgba(91,188,186,.12);  color:var(--teal) }
+    .badge-ws  { background:rgba(123,143,212,.12); color:var(--indigo) }
+
+    /* ─── ROI / INVERSIÓN ─── */
+    #inversion { background:var(--lav) }
+
+    .roi-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:2rem;
+    }
+    .roi-bar-wrap { margin-top:1.5rem }
+    .roi-label { display:flex; justify-content:space-between; font-size:.87rem; margin-bottom:.45rem }
+    .roi-label span:first-child { color:var(--text2) }
+    .roi-label span:last-child  { color:var(--text); font-weight:600 }
+    .roi-bar { height:9px; background:rgba(91,164,212,.1); border-radius:5px; overflow:hidden; margin-bottom:1rem }
+    .roi-fill { height:100%; border-radius:5px; width:0; transition:width 1.5s cubic-bezier(.22,1,.36,1) }
+    .roi-fill.c1 { background:linear-gradient(90deg,var(--blue),var(--teal)) }
+    .roi-fill.c2 { background:linear-gradient(90deg,var(--teal),var(--indigo)) }
+    .roi-fill.c3 { background:linear-gradient(90deg,var(--indigo),var(--blue)) }
+    .roi-fill.c4 { background:linear-gradient(90deg,var(--slate),var(--teal)) }
+    .roi-fill.active { width:var(--w) }
+
+    .metric-card {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:1.8rem;
+      transition:transform .3s,box-shadow .3s;
+    }
+    .metric-card:hover { transform:translateY(-3px); box-shadow:0 12px 36px rgba(91,164,212,.11) }
+    .metric-card h4 { font-family:var(--font-head); font-size:1rem; font-weight:700; color:var(--text); margin-bottom:1.2rem }
+    .big-metric { font-family:var(--font-head); font-size:2.9rem; font-weight:800; line-height:1; margin-bottom:.35rem; letter-spacing:-.03em }
+    .big-metric.green  { color:var(--teal) }
+    .big-metric.cyan   { color:var(--blue) }
+    .big-metric.orange { color:var(--indigo) }
+
+    /* ─── LEGAL ─── */
+    #legal { background:var(--sky) }
+
+    .legal-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.4rem;
+    }
+    .legal-card {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:1.8rem;
+      transition:transform .3s,box-shadow .3s;
+    }
+    .legal-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(91,164,212,.11) }
+    .legal-card h4 {
+      font-family:var(--font-head);
+      font-size:.98rem; font-weight:700; color:var(--text);
+      margin-bottom:.9rem;
+      display:flex; align-items:center; gap:.6rem;
+      padding-bottom:.8rem;
+      border-bottom:1px solid var(--border);
+    }
+    .legal-card ul { list-style:none; padding:0 }
+    .legal-card ul li {
+      color:var(--text2); font-size:.88rem;
+      padding:.38rem 0;
+      border-bottom:1px solid rgba(91,164,212,.06);
+      display:flex; align-items:flex-start; gap:.6rem;
+    }
+    .legal-card ul li::before { content:'›'; color:var(--blue); font-weight:700; flex-shrink:0 }
+
+    /* ─── CONTACTO ─── */
+    #contacto { background: var(--white) }
+
+    .contact-wrapper {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:3.5rem;
+      align-items:start;
+    }
+    .contact-info h3 {
+      font-family:var(--font-head);
+      font-size:2rem; font-weight:800; color:var(--text);
+      margin-bottom:1rem; letter-spacing:-.03em;
+    }
+    .contact-info > p { color:var(--text2); margin-bottom:2rem; font-size:1.05rem }
+
+    .contact-item {
+      display:flex; align-items:center; gap:1.1rem;
+      padding:1.1rem 1.2rem;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      margin-bottom:.9rem;
+      text-decoration:none;
+      transition:all .3s;
+    }
+    .contact-item:hover {
+      border-color:var(--border2);
+      background:var(--sky2);
+      transform:translateX(6px);
+      box-shadow:0 6px 24px rgba(91,164,212,.12);
+    }
+    .cico {
+      width:46px; height:46px;
+      border-radius:13px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem; flex-shrink:0;
+    }
+    .cico.email { background:rgba(91,164,212,.14) }
+    .cico.wa    { background:rgba(91,188,186,.16) }
+    .cico.loc   { background:rgba(123,143,212,.14) }
+    .clabel { font-size:.73rem; color:var(--text3); font-weight:700; text-transform:uppercase; letter-spacing:.08em }
+    .cval   { color:var(--text); font-size:.96rem; font-weight:600 }
+
+    .map-wrap {
+      border-radius:var(--r2);
+      overflow:hidden;
+      border:1px solid var(--border);
+      height:400px;
+      box-shadow:0 16px 48px rgba(91,164,212,.14);
+      position:relative;
+    }
+    .map-wrap iframe { width:100%; height:100%; border:none }
+
+    /* whatsapp floating */
+    .wa-float {
+      position:fixed;
+      bottom:2rem; right:2rem;
+      z-index:300;
+      width:60px; height:60px;
+      background:linear-gradient(135deg,#25d366,#128c7e);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.7rem;
+      box-shadow:0 8px 28px rgba(37,211,102,.45);
+      text-decoration:none;
+      transition:all .3s;
+      animation:pulse-ring 3s ease infinite;
+    }
+    .wa-float:hover {
+      transform:scale(1.12);
+      box-shadow:0 12px 36px rgba(37,211,102,.6);
+    }
+    .wa-tooltip {
+      position:absolute;
+      right:70px; top:50%;
+      transform:translateY(-50%);
+      background:rgba(30,58,82,.9);
+      color:#fff;
+      padding:.38rem .9rem;
+      border-radius:8px;
+      font-size:.8rem;
+      font-weight:600;
+      white-space:nowrap;
+      opacity:0;
+      transition:opacity .25s;
+      pointer-events:none;
+    }
+    .wa-float:hover .wa-tooltip { opacity:1 }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--text);
+      color:rgba(255,255,255,.55);
+      padding:3rem 2rem;
+      text-align:center;
+    }
+    .footer-logo {
+      font-family:var(--font-head);
+      font-weight:800;
+      font-size:1.5rem;
+      color:#fff;
+      margin-bottom:.6rem;
+    }
+    .footer-logo span { color:var(--sky3) }
+    footer p { font-size:.85rem; line-height:1.9 }
+    .footer-links {
+      display:flex;
+      justify-content:center;
+      gap:1.5rem;
+      flex-wrap:wrap;
+      margin:1.2rem 0;
+    }
+    .footer-links a {
+      color:rgba(255,255,255,.5);
+      text-decoration:none;
+      font-size:.83rem;
+      font-weight:600;
+      transition:color .2s;
+    }
+    .footer-links a:hover { color:var(--sky3) }
+
+    /* ─── UTILITIES ─── */
+    .divider {
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--border),transparent);
+      margin:2.5rem 0;
+    }
+
+    /* stagger */
+    .stagger-children > * {
+      opacity:0;
+      transform:translateY(26px);
+      transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+    }
+    .stagger-children.in > *:nth-child(1)  { opacity:1; transform:none; transition-delay:.04s }
+    .stagger-children.in > *:nth-child(2)  { opacity:1; transform:none; transition-delay:.12s }
+    .stagger-children.in > *:nth-child(3)  { opacity:1; transform:none; transition-delay:.20s }
+    .stagger-children.in > *:nth-child(4)  { opacity:1; transform:none; transition-delay:.28s }
+    .stagger-children.in > *:nth-child(5)  { opacity:1; transform:none; transition-delay:.36s }
+    .stagger-children.in > *:nth-child(6)  { opacity:1; transform:none; transition-delay:.44s }
+    .stagger-children.in > *:nth-child(7)  { opacity:1; transform:none; transition-delay:.52s }
+    .stagger-children.in > *:nth-child(8)  { opacity:1; transform:none; transition-delay:.60s }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:1000px){
+      .services-grid { grid-template-columns:1fr 1fr }
+      .hero-floaters { display:none }
+      .scroll-hint { display:none }
+      .process-timeline { grid-template-columns:1fr 1fr; }
+      .process-timeline::before { display:none }
+    }
+    @media(max-width:768px){
+      nav .nav-links, .nav-cta { display:none }
+      .hamburger { display:flex }
+      section { padding:5rem 1.4rem }
+      .services-grid { grid-template-columns:1fr }
+      .stats-grid { grid-template-columns:1fr 1fr }
+      .gallery-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+      .gallery-item:first-child { grid-row:auto }
+      .contact-wrapper { grid-template-columns:1fr }
+      .roi-grid { grid-template-columns:1fr }
+      .slide-overlay { padding:0 2rem }
+      .carousel-arrow.left { left:1rem }
+      .carousel-arrow.right { right:1rem }
+      .team-grid { grid-template-columns:1fr 1fr }
+      .process-timeline { grid-template-columns:1fr 1fr }
+    }
+    @media(max-width:480px){
+      .stats-grid { grid-template-columns:1fr 1fr }
+      .team-grid { grid-template-columns:1fr }
+      .process-timeline { grid-template-columns:1fr }
+      .gallery-grid { grid-template-columns:1fr }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <a href="#hero" class="logo">
+    <div class="logo-icon">🐒</div>
+    Ciber <span>Monkey</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#plan">Plan</a></li>
+    <li><a href="#legal">Legal</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Cotizar →</a>
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#servicios" onclick="closeMobile()">Servicios</a>
+  <a href="#galeria" onclick="closeMobile()">Galería</a>
+  <a href="#proceso" onclick="closeMobile()">Proceso</a>
+  <a href="#equipo" onclick="closeMobile()">Equipo</a>
+  <a href="#plan" onclick="closeMobile()">Plan de Negocio</a>
+  <a href="#legal" onclick="closeMobile()">Legal</a>
+  <a href="#contacto" onclick="closeMobile()">Contacto</a>
+</div>
+
+<!-- ─── HERO CAROUSEL ─── -->
+<section id="hero">
+  <div class="carousel-track" id="carouselTrack">
+
+    <!-- Slide 1: Ciberseguridad -->
+    <div class="carousel-slide active">
+      <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1600&q=85&fit=crop&crop=center" alt="Ciberseguridad profesional" loading="eager">
+      <div class="slide-overlay">
+        <div class="slide-text">
+          <span class="slide-badge">🔐 Ciberseguridad</span>
+          <h1>Protegemos tu <em>infraestructura digital</em> 24/7</h1>
+          <p>Auditorías de seguridad, pentesting, SIEM y respuesta a incidentes para empresas que no pueden permitirse ser vulnerables.</p>
+          <div class="slide-btns">
+            <a href="#servicios" class="btn-primary-hero">Ver servicios</a>
+            <a href="#contacto" class="btn-glass">Contáctanos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Desarrollo -->
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&q=85&fit=crop&crop=center" alt="Desarrollo de software" loading="lazy">
+      <div class="slide-overlay">
+        <div class="slide-text">
+          <span class="slide-badge">💻 Desarrollo de Sistemas</span>
+          <h1>Software a la medida para <em>hacer crecer</em> tu negocio</h1>
+          <p>ERPs, CRMs y sistemas empresariales desarrollados con arquitecturas modernas, escalables y seguras desde el día uno.</p>
+          <div class="slide-btns">
+            <a href="#servicios" class="btn-primary-hero">Ver proyectos</a>
+            <a href="#contacto" class="btn-glass">Solicitar demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Web & Apps -->
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=85&fit=crop&crop=center" alt="Desarrollo web profesional" loading="lazy">
+      <div class="slide-overlay">
+        <div class="slide-text">
+          <span class="slide-badge">🌐 Desarrollo Web & Apps</span>
+          <h1>Tu presencia digital en <em>manos expertas</em></h1>
+          <p>Páginas web, tiendas en línea y aplicaciones móviles que convierten visitantes en clientes reales.</p>
+          <div class="slide-btns">
+            <a href="#servicios" class="btn-primary-hero">Nuestros servicios</a>
+            <a href="#contacto" class="btn-glass">Pide cotización</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Soporte -->
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=85&fit=crop&crop=center" alt="Soporte técnico" loading="lazy">
+      <div class="slide-overlay">
+        <div class="slide-text">
+          <span class="slide-badge">🔧 Soporte & Reparación</span>
+          <h1>Soporte técnico <em>profesional</em> para tu empresa</h1>
+          <p>Mantenimiento preventivo, reparación de equipos, configuración de redes y soporte remoto con SLA garantizado.</p>
+          <div class="slide-btns">
+            <a href="#servicios" class="btn-primary-hero">Planes de soporte</a>
+            <a href="#contacto" class="btn-glass">Emergencias</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- floaters -->
+  <div class="hero-floaters">
+    <div class="floater">
+      <div class="f-icon a">🛡️</div>
+      <div>
+        <div class="f-label">Seguridad activa</div>
+        <div class="f-val">24 / 7</div>
+      </div>
+    </div>
+    <div class="floater">
+      <div class="f-icon b">⚡</div>
+      <div>
+        <div class="f-label">Tiempo de respuesta</div>
+        <div class="f-val">&lt; 2 hrs</div>
+      </div>
+    </div>
+    <div class="floater">
+      <div class="f-icon c">✅</div>
+      <div>
+        <div class="f-label">Clientes satisfechos</div>
+        <div class="f-val">98 %</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- arrows -->
+  <button class="carousel-arrow left" onclick="prevSlide()" aria-label="Anterior">‹</button>
+  <button class="carousel-arrow right" onclick="nextSlide()" aria-label="Siguiente">›</button>
+
+  <!-- dots -->
+  <div class="carousel-dots">
+    <button class="dot active" onclick="goSlide(0)" aria-label="Slide 1"></button>
+    <button class="dot" onclick="goSlide(1)" aria-label="Slide 2"></button>
+    <button class="dot" onclick="goSlide(2)" aria-label="Slide 3"></button>
+    <button class="dot" onclick="goSlide(3)" aria-label="Slide 4"></button>
+  </div>
+
+  <!-- progress -->
+  <div class="carousel-progress" id="progress"></div>
+
+  <!-- scroll hint -->
+  <div class="scroll-hint">
+    <div class="wheel"></div>
+    <span>Desplaza</span>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Líneas de servicio</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Satisfacción clientes</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num">&lt;2h</div>
+      <div class="stat-label">Tiempo de respuesta</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Monitoreo de seguridad</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICIOS ─── -->
+<section id="servicios">
+  <div class="container">
+    <p class="section-label reveal">Lo que hacemos</p>
+    <h2 class="section-title reveal reveal-delay-1">Servicios tecnológicos<br>de <em>alto impacto</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Seis líneas de negocio especializadas que cubren todo el ciclo de vida tecnológico de tu empresa, desde la seguridad hasta el desarrollo y soporte.</p>
+
+    <div class="services-grid stagger-children">
+      <div class="service-card">
+        <div class="card-top-bar"></div>
+        <div class="svc-icon cyber">🛡️</div>
+        <h3>Ciberseguridad</h3>
+        <p>Pentesting, análisis de vulnerabilidades, implementación de SIEM, políticas ISO 27001 y respuesta a incidentes. Protección proactiva y reactiva para tu empresa.</p>
+        <span class="svc-price">Desde $8,500 MXN/mes</span>
+      </div>
+      <div class="service-card">
+        <div class="card-top-bar"></div>
+        <div class="svc-icon dev">⚙️</div>
+        <h3>Desarrollo de Sistemas</h3>
+        <p>ERPs, CRMs, sistemas de inventario, facturación electrónica y aplicaciones empresariales a medida con Python, .NET o Java.</p>
+        <span class="svc-price">Desde $35,000 MXN/proyecto</span>
+      </div>
+      <div class="service-card">
+        <div class="card-top-bar"></div>
+        <div class="svc-icon soporte">🖥️</div>
+        <h3>Soporte Técnico</h3>
+        <p>Mantenimiento preventivo y correctivo, helpdesk con tickets, configuración de redes, instalación de equipos y soporte remoto con SLA garantizado.</p>
+        <span class="svc-price">Desde $3,500 MXN/mes</span>
+      </div>
+      <div class="service-card">
+        <div class="card-top-bar"></div>
+        <div class="svc-icon celular">📱</div>
+        <h3>Taller de Celulares</h3>
+        <p>Reparación de pantallas, baterías, placas y recuperación de datos. Servicio certificado para iPhone, Samsung, Motorola y más marcas.</p>
+        <span class="svc-price">Desde $400 MXN por reparación</span>
+      </div>
+      <div class="service-card">
+        <div class="card-top-bar"></div>
+        <div class="svc-icon appmob">📲</div>
+        <h3>Apps Web & Móvil</h3>
+        <p>Aplicaciones web progresivas (PWA), apps nativas iOS/Android y soluciones híbridas con React Native o Flutter. UX/UI incluido.</p>
+        <span class="svc-price">Desde $55,000 MXN/proyecto</span>
+      </div>
+      <div class="service-card">
+        <div class="card-top-bar"></div>
+        <div class="svc-icon web">🌐</div>
+        <h3>Páginas Web</h3>
+        <p>Diseño y desarrollo de sitios corporativos, landing pages, e-commerce con WooCommerce o Shopify, SEO técnico y mantenimiento continuo.</p>
+        <span class="svc-price">Desde $12,000 MXN/proyecto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALERÍA ─── -->
+<section id="galeria">
+  <div class="container">
+    <p class="section-label reveal">Nuestro espacio</p>
+    <h2 class="section-title reveal reveal-delay-1">Conoce <em>Ciber Monkey</em><br>en acción</h2>
+    <p class="section-sub reveal reveal-delay-2">Tecnología de punta, equipo apasionado y un entorno de trabajo dinámico en el corazón de la Ciudad de México.</p>
+
+    <div class="gallery-grid stagger-children">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=85&fit=crop" alt="Equipo de tecnología trabajando">
+        <div class="gallery-overlay"><span class="gallery-caption">Equipo colaborativo de alto rendimiento</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&q=85&fit=crop" alt="Servidor y redes">
+        <div class="gallery-overlay"><span class="gallery-caption">Infraestructura de servidores</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=700&q=85&fit=crop" alt="Oficina tech moderna">
+        <div class="gallery-overlay"><span class="gallery-caption">Nuestras instalaciones modernas</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=700&q=85&fit=crop" alt="Programación y desarrollo">
+        <div class="gallery-overlay"><span class="gallery-caption">Desarrollo de software a la medida</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=700&q=85&fit=crop" alt="Reparación de dispositivos">
+        <div class="gallery-overlay"><span class="gallery-caption">Taller de reparación certificado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESO ─── -->
+<section id="proceso">
+  <div class="container">
+    <p class="section-label reveal">Cómo trabajamos</p>
+    <h2 class="section-title reveal reveal-delay-1">Un proceso <em>claro</em><br>y transparente</h2>
+    <p class="section-sub reveal reveal-delay-2">De la consulta inicial a la entrega final, acompañamos cada etapa con comunicación constante y resultados medibles.</p>
+
+    <div class="process-timeline stagger-children">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h4>Consulta inicial</h4>
+        <p>Analizamos tu situación actual, objetivos y necesidades específicas sin costo ni compromiso.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h4>Diagnóstico & propuesta</h4>
+        <p>Entregamos una propuesta detallada con alcance, tiempos y costos transparentes.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h4>Ejecución ágil</h4>
+        <p>Implementamos la solución con metodologías ágiles y reportes de avance periódicos.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h4>Soporte continuo</h4>
+        <p>Brindamos monitoreo, mantenimiento y soporte post-entrega para asegurar tu tranquilidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EQUIPO ─── -->
+<section id="equipo">
+  <div class="container">
+    <p class="section-label reveal">Nuestro equipo</p>
+    <h2 class="section-title reveal reveal-delay-1">Los <em>Ciber Monkeys</em><br>detrás del éxito</h2>
+    <p class="section-sub reveal reveal-delay-2">Profesionales especializados con experiencia real en ciberseguridad, desarrollo y soporte tecnológico.</p>
+
+    <div class="team-grid stagger-children">
+      <div class="team-card">
+        <div class="avatar">DL</div>
+        <h4>Dario López</h4>
+        <div class="team-role">CEO & Ciberseguridad</div>
+        <div class="team-salary">$25,000 MXN/mes</div>
+        <div class="skills-list">
+          <span class="skill-tag">Pentesting</span>
+          <span class="skill-tag">ISO 27001</span>
+          <span class="skill-tag">SIEM</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">JR</div>
+        <h4>José Ramírez</h4>
+        <div class="team-role">Líder de Desarrollo</div>
+        <div class="team-salary">$22,000 MXN/mes</div>
+        <div class="skills-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">.NET</span>
+          <span class="skill-tag">React</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">MG</div>
+        <h4>María González</h4>
+        <div class="team-role">Soporte & Redes</div>
+        <div class="team-salary">$18,000 MXN/mes</div>
+        <div class="skills-list">
+          <span class="skill-tag">Cisco</span>
+          <span class="skill-tag">Helpdesk</span>
+          <span class="skill-tag">Windows Server</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">AM</div>
+        <h4>Alejandro Mora</h4>
+        <div class="team-role">Apps Móvil & Web</div>
+        <div class="team-salary">$20,000 MXN/mes</div>
+        <div class="skills-list">
+          <span class="skill-tag">Flutter</span>
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">Firebase</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">PC</div>
+        <h4>Patricia Castro</h4>
+        <div class="team-role">Taller & Hardware</div>
+        <div class="team-salary">$15,000 MXN/mes</div>
+        <div class="skills-list">
+          <span class="skill-tag">iPhone</span>
+          <span class="skill-tag">Samsung</span>
+          <span class="skill-tag">Microsoldar</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">LV</div>
+        <h4>Luis Vargas</h4>
+        <div class="team-role">UX/UI & Diseño</div>
+        <div class="team-salary">$18,000 MXN/mes</div>
+        <div class="skills-list">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Branding</span>
+          <span class="skill-tag">UX Research</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PLAN DE NEGOCIO ─── -->
+<section id="plan">
+  <div class="container">
+    <p class="section-label reveal">Plan de negocio</p>
+    <h2 class="section-title reveal reveal-delay-1">Estructura financiera<br>y <em>operativa</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Proyecciones reales para el primer año de operación de Ciber Monkey S.A. de C.V.</p>
+
+    <div class="plan-grid stagger-children">
+      <div class="plan-card">
+        <h4><span class="ico">💰</span> Inversión Inicial</h4>
+        <div class="plan-row"><span>Equipos y hardware</span><span>$120,000</span></div>
+        <div class="plan-row"><span>Software y licencias</span><span>$45,000</span></div>
+        <div class="plan-row"><span>Adecuación de local</span><span>$80,000</span></div>
+        <div class="plan-row"><span>Capital de trabajo</span><span>$150,000</span></div>
+        <div class="plan-row"><span>Gastos de constitución</span><span>$25,000</span></div>
+        <div class="plan-row"><span class="highlight-val">Total inversión</span><span class="highlight-val">$420,000</span></div>
+      </div>
+      <div class="plan-card">
+        <h4><span class="ico">👥</span> Nómina Mensual</h4>
+        <div class="plan-row"><span>CEO & Ciberseguridad</span><span>$25,000</span></div>
+        <div class="plan-row"><span>Líder de Desarrollo</span><span>$22,000</span></div>
+        <div class="plan-row"><span>Apps Móvil & Web</span><span>$20,000</span></div>
+        <div class="plan-row"><span>Soporte & Redes</span><span>$18,000</span></div>
+        <div class="plan-row"><span>UX/UI & Diseño</span><span>$18,000</span></div>
+        <div class="plan-row"><span>Taller & Hardware</span><span>$15,000</span></div>
+        <div class="plan-row"><span class="highlight-val">Total + IMSS (~30%)</span><span class="highlight-val">$153,400</span></div>
+      </div>
+      <div class="plan-card">
+        <h4><span class="ico">🏢</span> Gastos Fijos/Mes</h4>
+        <div class="plan-row"><span>Renta de local</span><span>$15,000</span></div>
+        <div class="plan-row"><span>Internet fibra empresarial</span><span>$3,500</span></div>
+        <div class="plan-row"><span>Electricidad</span><span>$2,500</span></div>
+        <div class="plan-row"><span>Hosting & Cloud</span><span>$4,200</span></div>
+        <div class="plan-row"><span>Marketing digital</span><span>$5,000</span></div>
+        <div class="plan-row"><span>Contabilidad</span><span>$3,000</span></div>
+        <div class="plan-row"><span class="highlight-val">Total fijos</span><span class="highlight-val">$33,200</span></div>
+      </div>
+      <div class="plan-card">
+        <h4><span class="ico">📈</span> Mercado Objetivo</h4>
+        <div class="plan-row"><span>Pequeñas empresas CDMX</span><span>Primario</span></div>
+        <div class="plan-row"><span>Medianas empresas</span><span>Secundario</span></div>
+        <div class="plan-row"><span>Instituciones educativas</span><span>Especializado</span></div>
+        <div class="plan-row"><span>Gobierno local</span><span>Licitaciones</span></div>
+        <div class="plan-row"><span>Particulares (taller)</span><span>Flujo diario</span></div>
+        <div class="plan-row"><span class="highlight-val">Ticket promedio B2B</span><span class="highlight-val">$18,500/mes</span></div>
+      </div>
+    </div>
+    <div class="plan-note reveal" style="margin-top:1.5rem">
+      <strong style="color:var(--blue2)">Estrategia de crecimiento:</strong> Break-even en el mes 6 con al menos 2 contratos de ciberseguridad y 3 de soporte. El taller de celulares genera flujo de caja inmediato desde el día 1. Margen neto esperado del 15–22% en el año 2.
+    </div>
+  </div>
+</section>
+
+<!-- ─── INFRAESTRUCTURA ─── -->
+<section id="tecnico">
+  <div class="container">
+    <p class="section-label reveal">Infraestructura</p>
+    <h2 class="section-title reveal reveal-delay-1">Stack tecnológico<br><em>de nivel empresarial</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Herramientas y tecnologías que usamos para entregar soluciones robustas, seguras y escalables.</p>
+
+    <div class="reveal reveal-delay-2" style="overflow-x:auto;border-radius:var(--r2);border:1px solid var(--border)">
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Tecnología / Herramienta</th>
+            <th>Uso</th>
+            <th>Área</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Seguridad ofensiva</td><td>Kali Linux, Metasploit, Burp Suite</td><td>Pentesting y auditorías</td><td><span class="badge badge-cy">Cyber</span></td></tr>
+          <tr><td>SIEM / Monitoreo</td><td>Wazuh, Splunk, Elastic SIEM</td><td>Detección de amenazas 24/7</td><td><span class="badge badge-cy">Cyber</span></td></tr>
+          <tr><td>Backend</td><td>Python (FastAPI), .NET Core, Node.js</td><td>APIs y sistemas empresariales</td><td><span class="badge badge-ws">Dev</span></td></tr>
+          <tr><td>Frontend</td><td>React.js, Next.js, Vue.js</td><td>Interfaces de usuario</td><td><span class="badge badge-ws">Dev</span></td></tr>
+          <tr><td>Mobile</td><td>Flutter, React Native, Swift</td><td>Apps iOS y Android</td><td><span class="badge badge-ws">Dev</span></td></tr>
+          <tr><td>Cloud</td><td>AWS, Azure, Google Cloud</td><td>Hosting y escalabilidad</td><td><span class="badge badge-net">Infra</span></td></tr>
+          <tr><td>Redes</td><td>Cisco, MikroTik, Ubiquiti</td><td>Configuración y gestión</td><td><span class="badge badge-net">Infra</span></td></tr>
+          <tr><td>Bases de datos</td><td>PostgreSQL, MySQL, MongoDB, Redis</td><td>Almacenamiento de datos</td><td><span class="badge badge-ws">Dev</span></td></tr>
+          <tr><td>CMS / E-commerce</td><td>WordPress, WooCommerce, Shopify</td><td>Sitios y tiendas en línea</td><td><span class="badge badge-ws">Dev</span></td></tr>
+          <tr><td>Diagnóstico HW</td><td>JTAG, microscopio, estación de calor</td><td>Reparación de dispositivos</td><td><span class="badge badge-net">Taller</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INVERSIÓN / ROI ─── -->
+<section id="inversion">
+  <div class="container">
+    <p class="section-label reveal">Proyecciones financieras</p>
+    <h2 class="section-title reveal reveal-delay-1">Inversión &amp; <em>retorno</em><br>esperado</h2>
+    <p class="section-sub reveal reveal-delay-2">Números reales basados en el mercado CDMX para tecnología y servicios empresariales.</p>
+
+    <div class="roi-grid">
+      <div class="metric-card reveal">
+        <h4>📊 Proyección de ingresos mensuales</h4>
+        <div class="roi-bar-wrap">
+          <div class="roi-label"><span>Ciberseguridad (3 contratos)</span><span>$67,500</span></div>
+          <div class="roi-bar"><div class="roi-fill c1" style="--w:52%"></div></div>
+          <div class="roi-label"><span>Desarrollo de sistemas</span><span>$80,000</span></div>
+          <div class="roi-bar"><div class="roi-fill c2" style="--w:62%"></div></div>
+          <div class="roi-label"><span>Soporte técnico (8 contratos)</span><span>$48,000</span></div>
+          <div class="roi-bar"><div class="roi-fill c3" style="--w:37%"></div></div>
+          <div class="roi-label"><span>Taller celulares</span><span>$22,000</span></div>
+          <div class="roi-bar"><div class="roi-fill c4" style="--w:17%"></div></div>
+          <div class="roi-label"><span>Web & apps móvil</span><span>$55,000</span></div>
+          <div class="roi-bar"><div class="roi-fill c1" style="--w:42%"></div></div>
+          <div class="divider" style="margin:.8rem 0"></div>
+          <div class="roi-label" style="font-weight:700">
+            <span style="color:var(--text)">Ingreso mensual estimado</span>
+            <span style="color:var(--blue);font-size:1.15rem">$272,500</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="metric-card reveal" style="margin-bottom:1.2rem">
+          <h4>💸 Costos mensuales totales</h4>
+          <div class="big-metric orange">$270,200</div>
+          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Nómina ($237,000) + Fijos ($33,200)</p>
+        </div>
+        <div class="metric-card reveal reveal-delay-1" style="margin-bottom:1.2rem">
+          <h4>📈 EBITDA mensual (año 1)</h4>
+          <div class="big-metric green">$2,300</div>
+          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Margen neto inicial del 0.8% — break-even</p>
+        </div>
+        <div class="metric-card reveal reveal-delay-2">
+          <h4>⏱️ Recuperación de inversión</h4>
+          <div class="big-metric cyan">18–24</div>
+          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Meses al 100% de capacidad. Año 2: margen neto 15–22%.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LEGAL ─── -->
+<section id="legal">
+  <div class="container">
+    <p class="section-label reveal">Marco legal y fiscal</p>
+    <h2 class="section-title reveal reveal-delay-1">Aspectos <em>legales</em><br>y contables</h2>
+    <p class="section-sub reveal reveal-delay-2">Todo lo que necesitas cumplir para operar legalmente en México como empresa de tecnología.</p>
+
+    <div class="legal-grid stagger-children">
+      <div class="legal-card">
+        <h4>🏛️ Constitución Legal</h4>
+        <ul>
+          <li>Constitución como S.A. de C.V. ante Notario Público</li>
+          <li>Registro ante SAT — RFC empresarial</li>
+          <li>Alta en IMSS e INFONAVIT para todos los empleados</li>
+          <li>Registro en SIEM</li>
+          <li>Inscripción en Registro Público de Comercio (RPC)</li>
+        </ul>
+      </div>
+      <div class="legal-card">
+        <h4>📋 Trámites y Permisos</h4>
+        <ul>
+          <li>Uso de suelo para giro comercial / tecnológico</li>
+          <li>Licencia de funcionamiento municipal</li>
+          <li>Registro de marca ante IMPI (nombre + logo)</li>
+          <li>Aviso de privacidad ARCO — cumplimiento LFPDPPP</li>
+          <li>Registro como importador si aplica</li>
+        </ul>
+      </div>
+      <div class="legal-card">
+        <h4>💼 Obligaciones Fiscales</h4>
+        <ul>
+          <li>Régimen: Personas Morales (Título II LISR)</li>
+          <li>Declaración mensual de IVA (16%)</li>
+          <li>Declaración anual ISR (30% sobre utilidad)</li>
+          <li>Emisión de CFDI 4.0 por todos los servicios</li>
+          <li>Nómina electrónica con CFDI timbrados</li>
+          <li>Impuesto sobre nómina estatal (~3%)</li>
+        </ul>
+      </div>
+      <div class="legal-card">
+        <h4>📊 Contabilidad y Control</h4>
+        <ul>
+          <li>Contabilidad electrónica — CONTPAQi</li>
+          <li>Catálogo de cuentas SAT obligatorio</li>
+          <li>Balanza de comprobación mensual</li>
+          <li>Estado de resultados y flujo de caja mensual</li>
+          <li>Auditoría interna semestral recomendada</li>
+        </ul>
+      </div>
+      <div class="legal-card">
+        <h4>🔐 Marco de Ciberseguridad</h4>
+        <ul>
+          <li>NDA con todos los clientes</li>
+          <li>Cumplimiento PCI-DSS si se procesan pagos</li>
+          <li>LFPDPPP — Ley Federal de Protección de Datos</li>
+          <li>Código Penal, Art. 211 bis (vulnerabilidades)</li>
+          <li>Seguro de responsabilidad civil profesional (E&amp;O)</li>
+        </ul>
+      </div>
+      <div class="legal-card">
+        <h4>🤝 Contratos y SLAs</h4>
+        <ul>
+          <li>Contrato de prestación de servicios</li>
+          <li>SLA con tiempos de respuesta y penalizaciones</li>
+          <li>Contratos de trabajo IMSS</li>
+          <li>Acuerdo de no competencia para técnicos clave</li>
+          <li>Política de uso aceptable de recursos TI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACTO ─── -->
+<section id="contacto">
+  <div class="container">
+    <p class="section-label reveal">Ubícanos</p>
+    <h2 class="section-title reveal reveal-delay-1">Hablemos de tu <em>proyecto</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Los Ciber Monkey siempre innovando. Escríbenos o visítanos, estamos listos para ayudarte.</p>
+
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <a href="mailto:cibermonos@gmail.com" class="contact-item reveal reveal-delay-2">
+          <div class="cico email">✉️</div>
+          <div>
+            <div class="clabel">Correo electrónico</div>
+            <div class="cval">cibermonos@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="https://wa.me/525529109404" class="contact-item reveal reveal-delay-3" target="_blank" rel="noopener">
+          <div class="cico wa">💬</div>
+          <div>
+            <div class="clabel">WhatsApp</div>
+            <div class="cval">+52 55 2910 9404</div>
+          </div>
+        </a>
+
+        <div class="contact-item reveal reveal-delay-4">
+          <div class="cico loc">📍</div>
+          <div>
+            <div class="clabel">Dirección</div>
+            <div class="cval">CECyT 13 — Ing. Ricardo Flores Magón,<br>Ciudad de México</div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-5">
+          <div class="cico" style="background:rgba(91,164,212,.12)">🕐</div>
+          <div>
+            <div class="clabel">Horario de atención</div>
+            <div class="cval">Lunes–Viernes: 9:00–19:00 hrs<br>Sábado: 10:00–15:00 hrs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Maps CECyT 13 -->
+      <div class="reveal-zoom reveal-delay-2">
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.3082887406967!2d-99.17082252394218!3d19.389267081873994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff9ff8c9a67d%3A0x6b5a7ac6b2c5b921!2sCECyT%2013%20Ing.%20Ricardo%20Flores%20Mag%C3%B3n!5e0!3m2!1ses-419!2smx!4v1716000000000!5m2!1ses-419!2smx"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Ciber Monkey — CECyT 13">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">🐒 Ciber <span>Monkey</span> Solutions</div>
+  <div class="footer-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#plan">Plan</a>
+    <a href="#legal">Legal</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <p>
+    📍 CECyT 13, Ciudad de México &nbsp;·&nbsp;
+    ✉ cibermonos@gmail.com &nbsp;·&nbsp;
+    💬 +52 55 2910 9404
+  </p>
+  <p style="margin-top:.5rem; opacity:.45; font-size:.78rem">© 2025 Ciber Monkey S.A. de C.V. — Todos los derechos reservados</p>
+</footer>
+
+<!-- ─── WhatsApp flotante ─── -->
+<a href="https://wa.me/525529109404" class="wa-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <span class="wa-tooltip">¡Escríbenos por WhatsApp!</span>
+  💬
+</a>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  /* ── Carousel con Ken Burns + progress bar ── */
+  let current = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots   = document.querySelectorAll('.dot');
+  const track  = document.getElementById('carouselTrack');
+  const progressBar = document.getElementById('progress');
+  const DURATION = 6000;
+  let timer, progressTimer, progressStart, progressWidth = 0;
+
+  function updateProgress() {
+    const elapsed = Date.now() - progressStart;
+    progressWidth = Math.min((elapsed / DURATION) * 100, 100);
+    progressBar.style.width = progressWidth + '%';
+    if (progressWidth < 100) requestAnimationFrame(updateProgress);
+  }
+
+  function goSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    track.style.transform = `translateX(-${current * 100}%)`;
+    resetTimer();
+  }
+
+  function nextSlide() { goSlide(current + 1) }
+  function prevSlide()  { goSlide(current - 1) }
+
+  function resetTimer() {
+    clearInterval(timer);
+    cancelAnimationFrame(progressTimer);
+    progressBar.style.width = '0%';
+    progressStart = Date.now();
+    requestAnimationFrame(updateProgress);
+    timer = setInterval(nextSlide, DURATION);
+  }
+
+  resetTimer();
+
+  /* ── Navbar scroll ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* ── Hamburger ── */
+  const hamburgerBtn = document.getElementById('hamburger');
+  const mobileMenu   = document.getElementById('mobile-menu');
+  hamburgerBtn.addEventListener('click', () => {
+    hamburgerBtn.classList.toggle('open');
+    mobileMenu.classList.toggle('show');
+  });
+  function closeMobile() {
+    hamburgerBtn.classList.remove('open');
+    mobileMenu.classList.remove('show');
+  }
+
+  /* ── IntersectionObserver reveal ── */
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(
+    '.reveal, .reveal-left, .reveal-right, .reveal-zoom, .stagger-children, .stat-item'
+  ).forEach(el => revealIO.observe(el));
+
+  /* ── ROI bars animation ── */
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.roi-fill').forEach((fill, i) => {
+          setTimeout(() => fill.classList.add('active'), i * 140);
+        });
+        barIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  const roiWrap = document.querySelector('.roi-bar-wrap');
+  if (roiWrap) barIO.observe(roiWrap.closest('.metric-card'));
+
+  /* ── Swipe touch support ── */
+  let touchStartX = 0;
+  document.getElementById('hero').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.getElementById('hero').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? nextSlide() : prevSlide();
+    }
+  }, { passive: true });
+
+  /* ── Keyboard navigation ── */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft')  prevSlide();
+  });
+</script>
+</body>
+</html>
