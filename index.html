@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+       <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -99,6 +99,13 @@
       25% { transform: rotate(-8deg) }
       75% { transform: rotate(8deg) }
     }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes progressDash {
+      from { stroke-dashoffset: 251; }
+    }
 
     /* Reveal on scroll */
     .reveal {
@@ -161,12 +168,12 @@
       box-shadow: 0 4px 12px rgba(91,164,212,.3);
     }
     .nav-links {
-      display: flex; gap: 1.6rem; list-style: none;
+      display: flex; gap: 1.4rem; list-style: none;
     }
     .nav-links a {
       color: var(--text2);
       text-decoration: none;
-      font-size: .87rem;
+      font-size: .82rem;
       font-weight: 600;
       letter-spacing: .02em;
       transition: color .2s;
@@ -253,7 +260,6 @@
       overflow: hidden;
     }
 
-    /* Real image slides */
     .carousel-track {
       position: absolute;
       inset: 0;
@@ -276,8 +282,6 @@
     .carousel-slide.active img {
       transform: scale(1);
     }
-
-    /* overlay gradient */
     .carousel-slide::after {
       content:'';
       position:absolute;
@@ -289,8 +293,6 @@
         rgba(0,40,80,.1) 100%
       );
     }
-
-    /* text overlay */
     .slide-overlay {
       position: absolute;
       inset: 0;
@@ -382,8 +384,6 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 36px rgba(91,164,212,.65);
     }
-
-    /* carousel controls */
     .carousel-dots {
       position: absolute;
       bottom: 2.8rem;
@@ -429,8 +429,6 @@
     }
     .carousel-arrow.left { left: 2.5rem }
     .carousel-arrow.right { right: 2.5rem }
-
-    /* progress bar */
     .carousel-progress {
       position: absolute;
       bottom: 0;
@@ -442,8 +440,6 @@
       border-radius: 0 3px 3px 0;
       transition: width .1s linear;
     }
-
-    /* floating mini cards */
     .hero-floaters {
       position: absolute;
       right: 4.5rem;
@@ -480,8 +476,6 @@
     .f-icon.c { background: rgba(123,143,212,.28) }
     .f-label { font-size: .74rem; color: rgba(255,255,255,.65); font-weight: 600; letter-spacing:.03em }
     .f-val { font-size: .98rem; font-weight: 800; color: #fff }
-
-    /* scroll hint */
     .scroll-hint {
       position: absolute;
       bottom: 3rem;
@@ -631,7 +625,6 @@
       transition: transform .45s cubic-bezier(.22,1,.36,1);
     }
     .service-card:hover .card-top-bar { transform:scaleX(1) }
-
     .svc-icon {
       width:56px; height:56px;
       border-radius:16px;
@@ -647,7 +640,6 @@
     .svc-icon.celular { background:rgba(91,164,212,.10) }
     .svc-icon.web     { background:rgba(168,196,216,.18) }
     .svc-icon.appmob  { background:rgba(123,143,212,.12) }
-
     .service-card h3 {
       font-family: var(--font-head);
       font-size: 1.2rem;
@@ -818,6 +810,224 @@
     .skills-list { display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center }
     .skill-tag { background:rgba(123,143,212,.10); color:var(--indigo); padding:.22rem .65rem; border-radius:50px; font-size:.72rem; font-weight:600; border:1px solid rgba(123,143,212,.2) }
 
+    /* ─── CONOCIMIENTOS TÉCNICOS ─── */
+    #conocimientos { background: var(--sky) }
+
+    .conocimientos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .conocimiento-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 2rem 1.8rem;
+      transition: all .4s cubic-bezier(.22,1,.36,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .conocimiento-card::after {
+      content:'';
+      position:absolute;
+      bottom:0; left:0; right:0;
+      height:3px;
+      background:linear-gradient(90deg,var(--blue),var(--teal));
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .45s cubic-bezier(.22,1,.36,1);
+    }
+    .conocimiento-card:hover::after { transform:scaleX(1) }
+    .conocimiento-card:hover {
+      border-color:var(--border2);
+      transform:translateY(-6px);
+      box-shadow:0 20px 48px rgba(91,164,212,.14);
+    }
+    .conocimiento-card .k-header {
+      display:flex; align-items:center; gap:.8rem;
+      margin-bottom:1.2rem;
+      padding-bottom:1rem;
+      border-bottom:1px solid var(--border);
+    }
+    .k-icon {
+      width:48px; height:48px;
+      border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem;
+      flex-shrink:0;
+    }
+    .k-icon.a { background:rgba(91,164,212,.12) }
+    .k-icon.b { background:rgba(91,188,186,.12) }
+    .k-icon.c { background:rgba(123,143,212,.12) }
+    .k-icon.d { background:rgba(168,196,216,.18) }
+    .k-icon.e { background:rgba(91,164,212,.10) }
+    .k-icon.f { background:rgba(123,143,212,.10) }
+    .conocimiento-card h4 {
+      font-family:var(--font-head);
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+    }
+    .k-role { font-size:.72rem; color:var(--blue); font-weight:700; text-transform:uppercase; letter-spacing:.07em }
+    .skill-bar-list { display:flex; flex-direction:column; gap:.7rem }
+    .skill-bar-item {}
+    .sb-label { display:flex; justify-content:space-between; font-size:.78rem; margin-bottom:.3rem }
+    .sb-label span:first-child { color:var(--text2); font-weight:600 }
+    .sb-label span:last-child  { color:var(--blue2); font-weight:700 }
+    .sb-track { height:6px; background:rgba(91,164,212,.1); border-radius:4px; overflow:hidden }
+    .sb-fill  { height:100%; border-radius:4px; width:0; transition:width 1.4s cubic-bezier(.22,1,.36,1) }
+    .sb-fill.active { width:var(--w) }
+    .sb-fill.g1 { background:linear-gradient(90deg,var(--blue),var(--teal)) }
+    .sb-fill.g2 { background:linear-gradient(90deg,var(--teal),var(--indigo)) }
+    .sb-fill.g3 { background:linear-gradient(90deg,var(--indigo),var(--blue)) }
+
+    /* ─── INFRAESTRUCTURA TÉCNICA ─── */
+    #infraestructura { background: var(--white) }
+
+    .infra-hero {
+      background: linear-gradient(135deg, var(--blue3), var(--teal));
+      border-radius: var(--r2);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .infra-hero::before {
+      content:'';
+      position:absolute;
+      right:-60px; top:-60px;
+      width:300px; height:300px;
+      background:rgba(255,255,255,.05);
+      border-radius:50%;
+    }
+    .infra-hero::after {
+      content:'';
+      position:absolute;
+      left:-40px; bottom:-80px;
+      width:250px; height:250px;
+      background:rgba(255,255,255,.04);
+      border-radius:50%;
+    }
+    .infra-stat {
+      text-align:center;
+      color:#fff;
+      position:relative;
+      z-index:1;
+    }
+    .infra-stat .is-num {
+      font-family:var(--font-head);
+      font-size:2.2rem;
+      font-weight:800;
+      letter-spacing:-.03em;
+      line-height:1;
+      margin-bottom:.3rem;
+    }
+    .infra-stat .is-label { font-size:.82rem; opacity:.8; font-weight:600 }
+
+    .equipo-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:1.5rem;
+      margin-bottom:2rem;
+    }
+    .equipo-card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:1.8rem;
+      transition:all .3s;
+    }
+    .equipo-card:hover {
+      border-color:var(--border2);
+      box-shadow:0 12px 36px rgba(91,164,212,.12);
+      transform:translateY(-3px);
+    }
+    .equipo-card h4 {
+      font-family:var(--font-head);
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:1rem;
+      display:flex; align-items:center; gap:.6rem;
+      padding-bottom:.8rem;
+      border-bottom:1px solid var(--border);
+    }
+    .spec-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      padding:.4rem 0;
+      border-bottom:1px solid rgba(91,164,212,.06);
+      font-size:.85rem;
+      gap:1rem;
+    }
+    .spec-row:last-child { border-bottom:none }
+    .spec-row span:first-child { color:var(--text2); flex-shrink:0 }
+    .spec-row span:last-child  { color:var(--text); font-weight:600; text-align:right }
+
+    .banda-section {
+      background:linear-gradient(135deg,rgba(91,164,212,.07),rgba(91,188,186,.07));
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:2rem;
+      margin-bottom:2rem;
+    }
+    .banda-section h4 {
+      font-family:var(--font-head);
+      font-size:1.1rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:1.4rem;
+      display:flex; align-items:center; gap:.6rem;
+    }
+    .banda-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:1.5rem;
+    }
+    .banda-tipo {
+      background:var(--white);
+      border-radius:var(--r);
+      padding:1.5rem;
+      border:1px solid var(--border);
+      transition:all .3s;
+    }
+    .banda-tipo:hover { border-color:var(--border2); box-shadow:0 8px 24px rgba(91,164,212,.1) }
+    .bt-badge {
+      display:inline-block;
+      padding:.25rem .8rem;
+      border-radius:50px;
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:.8rem;
+    }
+    .bt-badge.sincrono   { background:rgba(91,188,186,.15); color:var(--teal) }
+    .bt-badge.asincrono  { background:rgba(123,143,212,.15); color:var(--indigo) }
+    .bt-badge.recomendado { background:linear-gradient(135deg,var(--blue),var(--teal)); color:#fff }
+    .bt-title { font-family:var(--font-head); font-weight:700; color:var(--text); font-size:1rem; margin-bottom:.5rem }
+    .bt-desc  { font-size:.83rem; color:var(--text2); line-height:1.6; margin-bottom:.9rem }
+    .bt-mbps  {
+      font-family:var(--font-head);
+      font-size:1.8rem;
+      font-weight:800;
+      color:var(--blue);
+      letter-spacing:-.03em;
+    }
+    .bt-mbps span { font-size:.9rem; font-weight:600; color:var(--text2) }
+    .bt-pros { margin-top:.8rem; display:flex; flex-direction:column; gap:.3rem }
+    .bt-pros li {
+      list-style:none;
+      font-size:.78rem;
+      color:var(--text2);
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .bt-pros li::before { content:'✓'; color:var(--teal); font-weight:700 }
+
     /* ─── PLAN DE NEGOCIO ─── */
     #plan { background:var(--sky) }
 
@@ -865,8 +1075,192 @@
       font-size:.9rem;
     }
 
-    /* ─── INFRAESTRUCTURA ─── */
-    #tecnico { background:var(--white) }
+    /* ─── RENTA Y SERVICIOS ─── */
+    #renta { background: var(--lav) }
+
+    .renta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      margin-bottom: 2rem;
+    }
+    .renta-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 1.8rem;
+      transition: all .3s cubic-bezier(.22,1,.36,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .renta-card::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:3px;
+      background:linear-gradient(90deg,var(--blue),var(--teal));
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .renta-card:hover::before { transform:scaleX(1) }
+    .renta-card:hover {
+      border-color:var(--border2);
+      transform:translateY(-4px);
+      box-shadow:0 16px 44px rgba(91,164,212,.13);
+    }
+    .renta-card h4 {
+      font-family:var(--font-head);
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:1.1rem;
+      display:flex; align-items:center; gap:.6rem;
+      padding-bottom:.8rem;
+      border-bottom:1px solid var(--border);
+    }
+    .renta-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:.42rem 0;
+      border-bottom:1px solid rgba(91,164,212,.07);
+      font-size:.86rem;
+    }
+    .renta-row:last-child { border-bottom:none }
+    .renta-row span:first-child { color:var(--text2) }
+    .renta-row span:last-child  { color:var(--text); font-weight:600 }
+    .renta-total {
+      background:linear-gradient(135deg,var(--blue3),var(--teal));
+      border-radius:var(--r2);
+      padding:2rem 2.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+    .renta-total .rt-label { color:rgba(255,255,255,.75); font-size:.95rem; font-weight:600 }
+    .renta-total .rt-val {
+      font-family:var(--font-head);
+      font-size:2.8rem;
+      font-weight:800;
+      color:#fff;
+      letter-spacing:-.03em;
+      line-height:1;
+    }
+    .renta-total .rt-note { color:rgba(255,255,255,.65); font-size:.8rem; margin-top:.25rem }
+    .renta-items { display:flex; flex-direction:column; gap:.5rem; margin-top:1rem }
+    .ri-item { display:flex; align-items:center; gap:.6rem; color:rgba(255,255,255,.85); font-size:.85rem; font-weight:600 }
+    .ri-item::before { content:'•'; color:var(--sky3); font-size:1.1rem }
+
+    /* ─── PRÉSTAMO / FINANCIAMIENTO ─── */
+    #financiamiento { background: var(--white) }
+
+    .prestamo-hero {
+      background:linear-gradient(135deg,rgba(91,164,212,.08),rgba(91,188,186,.08));
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:2.5rem;
+      margin-bottom:2rem;
+      text-align:center;
+    }
+    .prestamo-hero h3 {
+      font-family:var(--font-head);
+      font-size:1.6rem;
+      font-weight:800;
+      color:var(--text);
+      margin-bottom:.5rem;
+    }
+    .prestamo-hero p { color:var(--text2); font-size:.95rem; max-width:600px; margin:0 auto 1.5rem }
+    .prestamo-amount {
+      font-family:var(--font-head);
+      font-size:3.5rem;
+      font-weight:800;
+      color:var(--blue);
+      letter-spacing:-.04em;
+      line-height:1;
+      margin-bottom:.5rem;
+    }
+    .prestamo-amount span { font-size:1.5rem; color:var(--text2) }
+
+    .prestamo-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.4rem;
+      margin-bottom:2rem;
+    }
+    .prestamo-card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:1.8rem;
+      transition:all .3s;
+    }
+    .prestamo-card:hover {
+      border-color:var(--border2);
+      transform:translateY(-4px);
+      box-shadow:0 12px 36px rgba(91,164,212,.12);
+    }
+    .prestamo-card.featured {
+      border-color:var(--blue2);
+      background:rgba(91,164,212,.06);
+      position:relative;
+    }
+    .prestamo-card.featured::before {
+      content:'⭐ Recomendado';
+      position:absolute;
+      top:-12px; left:50%; transform:translateX(-50%);
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      font-size:.7rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      padding:.22rem .9rem;
+      border-radius:50px;
+      white-space:nowrap;
+    }
+    .prestamo-card h4 {
+      font-family:var(--font-head);
+      font-size:.98rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:.3rem;
+    }
+    .prestamo-card .pc-tipo { color:var(--blue); font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:1rem }
+    .prestamo-card .pc-tasa {
+      font-family:var(--font-head);
+      font-size:2rem;
+      font-weight:800;
+      color:var(--text);
+      letter-spacing:-.03em;
+      line-height:1;
+      margin-bottom:.3rem;
+    }
+    .prestamo-card .pc-tasa span { font-size:.95rem; color:var(--text2); font-weight:600 }
+    .prestamo-card ul { list-style:none; margin-top:1rem }
+    .prestamo-card ul li {
+      font-size:.82rem;
+      color:var(--text2);
+      padding:.28rem 0;
+      border-bottom:1px solid rgba(91,164,212,.07);
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .prestamo-card ul li:last-child { border-bottom:none }
+    .prestamo-card ul li::before { content:'›'; color:var(--blue); font-weight:700 }
+
+    .prestamo-nota {
+      background:rgba(91,188,186,.1);
+      border-left:3px solid var(--teal);
+      border-radius:0 var(--r) var(--r) 0;
+      padding:1rem 1.4rem;
+      color:var(--text2);
+      font-size:.88rem;
+    }
+
+    /* ─── INFRAESTRUCTURA TÉCNICA ─── */
+    #tecnico { background:var(--sky) }
 
     .tech-table {
       width:100%;
@@ -897,7 +1291,7 @@
     .badge-ws  { background:rgba(123,143,212,.12); color:var(--indigo) }
 
     /* ─── ROI / INVERSIÓN ─── */
-    #inversion { background:var(--lav) }
+    #inversion { background:var(--white) }
 
     .roi-grid {
       display:grid;
@@ -917,7 +1311,7 @@
     .roi-fill.active { width:var(--w) }
 
     .metric-card {
-      background:var(--white);
+      background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--r2);
       padding:1.8rem;
@@ -929,6 +1323,99 @@
     .big-metric.green  { color:var(--teal) }
     .big-metric.cyan   { color:var(--blue) }
     .big-metric.orange { color:var(--indigo) }
+
+    /* ─── RECUPERACIÓN INVERSIÓN ─── */
+    #recuperacion { background: var(--lav) }
+
+    .timeline-recovery {
+      position:relative;
+      padding-left:2.5rem;
+    }
+    .timeline-recovery::before {
+      content:'';
+      position:absolute;
+      left:11px; top:0; bottom:0;
+      width:2px;
+      background:linear-gradient(180deg,var(--blue),var(--teal),rgba(91,188,186,.1));
+    }
+    .tl-item {
+      position:relative;
+      padding:.6rem 0 2rem 2rem;
+    }
+    .tl-dot {
+      position:absolute;
+      left:-20px;
+      top:10px;
+      width:24px; height:24px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      border:3px solid var(--white);
+      box-shadow:0 0 0 3px rgba(91,164,212,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.6rem;
+      font-weight:800;
+      color:#fff;
+      transition:transform .3s;
+    }
+    .tl-item:hover .tl-dot { transform:scale(1.3) }
+    .tl-month {
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--blue);
+      margin-bottom:.3rem;
+    }
+    .tl-title {
+      font-family:var(--font-head);
+      font-size:1.05rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:.4rem;
+    }
+    .tl-desc { color:var(--text2); font-size:.87rem; line-height:1.65 }
+    .tl-metric {
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      background:rgba(91,164,212,.09);
+      border:1px solid rgba(91,164,212,.2);
+      border-radius:50px;
+      padding:.22rem .8rem;
+      font-size:.75rem;
+      font-weight:700;
+      color:var(--blue2);
+      margin-top:.6rem;
+    }
+
+    .recovery-summary {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.4rem;
+      margin-top:3rem;
+    }
+    .rs-card {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:1.8rem;
+      text-align:center;
+      transition:all .3s;
+    }
+    .rs-card:hover { border-color:var(--border2); box-shadow:0 12px 36px rgba(91,164,212,.1); transform:translateY(-3px) }
+    .rs-icon { font-size:2rem; margin-bottom:.8rem }
+    .rs-val {
+      font-family:var(--font-head);
+      font-size:2.2rem;
+      font-weight:800;
+      letter-spacing:-.03em;
+      line-height:1;
+      margin-bottom:.4rem;
+    }
+    .rs-val.blue  { color:var(--blue) }
+    .rs-val.teal  { color:var(--teal) }
+    .rs-val.indigo{ color:var(--indigo) }
+    .rs-label { color:var(--text2); font-size:.85rem; font-weight:600 }
 
     /* ─── LEGAL ─── */
     #legal { background:var(--sky) }
@@ -963,8 +1450,60 @@
     }
     .legal-card ul li::before { content:'›'; color:var(--blue); font-weight:700; flex-shrink:0 }
 
+    /* ─── CONTABLE ─── */
+    #contable { background: var(--white) }
+
+    .contable-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .contable-block {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r2);
+      padding:2rem;
+      transition:all .3s;
+    }
+    .contable-block:hover { border-color:var(--border2); box-shadow:0 12px 36px rgba(91,164,212,.1); transform:translateY(-3px) }
+    .contable-block h4 {
+      font-family:var(--font-head);
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+      margin-bottom:1.2rem;
+      padding-bottom:.8rem;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:.6rem;
+    }
+    .contable-list { list-style:none }
+    .contable-list li {
+      color:var(--text2);
+      font-size:.87rem;
+      padding:.42rem 0;
+      border-bottom:1px solid rgba(91,164,212,.07);
+      display:flex; align-items:flex-start; gap:.6rem;
+      line-height:1.5;
+    }
+    .contable-list li:last-child { border-bottom:none }
+    .contable-list li::before { content:'›'; color:var(--blue); font-weight:700; flex-shrink:0; line-height:1.5 }
+    .tax-badge {
+      display:inline-block;
+      padding:.18rem .6rem;
+      border-radius:50px;
+      font-size:.7rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-left:.4rem;
+    }
+    .tax-badge.iva  { background:rgba(91,164,212,.12); color:var(--blue2) }
+    .tax-badge.isr  { background:rgba(123,143,212,.12); color:var(--indigo) }
+    .tax-badge.nom  { background:rgba(91,188,186,.12);  color:var(--teal) }
+
     /* ─── CONTACTO ─── */
-    #contacto { background: var(--white) }
+    #contacto { background: var(--sky) }
 
     .contact-wrapper {
       display:grid;
@@ -978,11 +1517,10 @@
       margin-bottom:1rem; letter-spacing:-.03em;
     }
     .contact-info > p { color:var(--text2); margin-bottom:2rem; font-size:1.05rem }
-
     .contact-item {
       display:flex; align-items:center; gap:1.1rem;
       padding:1.1rem 1.2rem;
-      background:var(--card);
+      background:var(--white);
       border:1px solid var(--border);
       border-radius:var(--r);
       margin-bottom:.9rem;
@@ -1006,7 +1544,6 @@
     .cico.loc   { background:rgba(123,143,212,.14) }
     .clabel { font-size:.73rem; color:var(--text3); font-weight:700; text-transform:uppercase; letter-spacing:.08em }
     .cval   { color:var(--text); font-size:.96rem; font-weight:600 }
-
     .map-wrap {
       border-radius:var(--r2);
       overflow:hidden;
@@ -1114,6 +1651,11 @@
       .scroll-hint { display:none }
       .process-timeline { grid-template-columns:1fr 1fr; }
       .process-timeline::before { display:none }
+      .conocimientos-grid { grid-template-columns:1fr 1fr }
+      .infra-hero { grid-template-columns:1fr 1fr }
+      .renta-grid { grid-template-columns:1fr 1fr }
+      .prestamo-grid { grid-template-columns:1fr }
+      .recovery-summary { grid-template-columns:1fr 1fr }
     }
     @media(max-width:768px){
       nav .nav-links, .nav-cta { display:none }
@@ -1130,12 +1672,20 @@
       .carousel-arrow.right { right:1rem }
       .team-grid { grid-template-columns:1fr 1fr }
       .process-timeline { grid-template-columns:1fr 1fr }
+      .conocimientos-grid { grid-template-columns:1fr }
+      .equipo-grid { grid-template-columns:1fr }
+      .banda-grid { grid-template-columns:1fr }
+      .renta-grid { grid-template-columns:1fr }
+      .recovery-summary { grid-template-columns:1fr }
+      .contable-grid { grid-template-columns:1fr }
+      .infra-hero { grid-template-columns:1fr 1fr }
     }
     @media(max-width:480px){
       .stats-grid { grid-template-columns:1fr 1fr }
       .team-grid { grid-template-columns:1fr }
       .process-timeline { grid-template-columns:1fr }
       .gallery-grid { grid-template-columns:1fr }
+      .infra-hero { grid-template-columns:1fr }
     }
   </style>
 </head>
@@ -1149,10 +1699,13 @@
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#galeria">Galería</a></li>
-    <li><a href="#proceso">Proceso</a></li>
     <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#conocimientos">Técnicos</a></li>
+    <li><a href="#infraestructura">Infraestructura</a></li>
     <li><a href="#plan">Plan</a></li>
+    <li><a href="#renta">Renta</a></li>
+    <li><a href="#financiamiento">Préstamo</a></li>
+    <li><a href="#recuperacion">Recuperación</a></li>
     <li><a href="#legal">Legal</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
@@ -1167,7 +1720,12 @@
   <a href="#galeria" onclick="closeMobile()">Galería</a>
   <a href="#proceso" onclick="closeMobile()">Proceso</a>
   <a href="#equipo" onclick="closeMobile()">Equipo</a>
+  <a href="#conocimientos" onclick="closeMobile()">Conocimientos Técnicos</a>
+  <a href="#infraestructura" onclick="closeMobile()">Infraestructura</a>
   <a href="#plan" onclick="closeMobile()">Plan de Negocio</a>
+  <a href="#renta" onclick="closeMobile()">Renta y Servicios</a>
+  <a href="#financiamiento" onclick="closeMobile()">Préstamo</a>
+  <a href="#recuperacion" onclick="closeMobile()">Recuperación de Inversión</a>
   <a href="#legal" onclick="closeMobile()">Legal</a>
   <a href="#contacto" onclick="closeMobile()">Contacto</a>
 </div>
@@ -1175,8 +1733,6 @@
 <!-- ─── HERO CAROUSEL ─── -->
 <section id="hero">
   <div class="carousel-track" id="carouselTrack">
-
-    <!-- Slide 1: Ciberseguridad -->
     <div class="carousel-slide active">
       <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1600&q=85&fit=crop&crop=center" alt="Ciberseguridad profesional" loading="eager">
       <div class="slide-overlay">
@@ -1191,8 +1747,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Slide 2: Desarrollo -->
     <div class="carousel-slide">
       <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&q=85&fit=crop&crop=center" alt="Desarrollo de software" loading="lazy">
       <div class="slide-overlay">
@@ -1207,8 +1761,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Slide 3: Web & Apps -->
     <div class="carousel-slide">
       <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=85&fit=crop&crop=center" alt="Desarrollo web profesional" loading="lazy">
       <div class="slide-overlay">
@@ -1223,8 +1775,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Slide 4: Soporte -->
     <div class="carousel-slide">
       <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=85&fit=crop&crop=center" alt="Soporte técnico" loading="lazy">
       <div class="slide-overlay">
@@ -1239,10 +1789,8 @@
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- floaters -->
   <div class="hero-floaters">
     <div class="floater">
       <div class="f-icon a">🛡️</div>
@@ -1267,11 +1815,9 @@
     </div>
   </div>
 
-  <!-- arrows -->
   <button class="carousel-arrow left" onclick="prevSlide()" aria-label="Anterior">‹</button>
   <button class="carousel-arrow right" onclick="nextSlide()" aria-label="Siguiente">›</button>
 
-  <!-- dots -->
   <div class="carousel-dots">
     <button class="dot active" onclick="goSlide(0)" aria-label="Slide 1"></button>
     <button class="dot" onclick="goSlide(1)" aria-label="Slide 2"></button>
@@ -1279,10 +1825,7 @@
     <button class="dot" onclick="goSlide(3)" aria-label="Slide 4"></button>
   </div>
 
-  <!-- progress -->
   <div class="carousel-progress" id="progress"></div>
-
-  <!-- scroll hint -->
   <div class="scroll-hint">
     <div class="wheel"></div>
     <span>Desplaza</span>
@@ -1371,7 +1914,6 @@
     <p class="section-label reveal">Nuestro espacio</p>
     <h2 class="section-title reveal reveal-delay-1">Conoce <em>Ciber Monkey</em><br>en acción</h2>
     <p class="section-sub reveal reveal-delay-2">Tecnología de punta, equipo apasionado y un entorno de trabajo dinámico en el corazón de la Ciudad de México.</p>
-
     <div class="gallery-grid stagger-children">
       <div class="gallery-item">
         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=85&fit=crop" alt="Equipo de tecnología trabajando">
@@ -1403,7 +1945,6 @@
     <p class="section-label reveal">Cómo trabajamos</p>
     <h2 class="section-title reveal reveal-delay-1">Un proceso <em>claro</em><br>y transparente</h2>
     <p class="section-sub reveal reveal-delay-2">De la consulta inicial a la entrega final, acompañamos cada etapa con comunicación constante y resultados medibles.</p>
-
     <div class="process-timeline stagger-children">
       <div class="process-step">
         <div class="step-num">01</div>
@@ -1435,7 +1976,6 @@
     <p class="section-label reveal">Nuestro equipo</p>
     <h2 class="section-title reveal reveal-delay-1">Los <em>Ciber Monkeys</em><br>detrás del éxito</h2>
     <p class="section-sub reveal reveal-delay-2">Profesionales especializados con experiencia real en ciberseguridad, desarrollo y soporte tecnológico.</p>
-
     <div class="team-grid stagger-children">
       <div class="team-card">
         <div class="avatar">DL</div>
@@ -1507,6 +2047,330 @@
   </div>
 </section>
 
+<!-- ─── ★ CONOCIMIENTOS TÉCNICOS ─── -->
+<section id="conocimientos">
+  <div class="container">
+    <p class="section-label reveal">Personal técnico</p>
+    <h2 class="section-title reveal reveal-delay-1">Conocimientos técnicos<br>de nuestro <em>equipo</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Cada integrante de Ciber Monkey cuenta con formación especializada, certificaciones vigentes y habilidades medibles en su área de expertise.</p>
+
+    <div class="conocimientos-grid stagger-children">
+
+      <!-- CEO & Ciberseguridad -->
+      <div class="conocimiento-card">
+        <div class="k-header">
+          <div class="k-icon a">🛡️</div>
+          <div>
+            <div class="k-role">CEO & Líder de Ciberseguridad</div>
+            <h4>Dario López</h4>
+          </div>
+        </div>
+        <div class="skill-bar-list">
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Pentesting / Ethical Hacking</span><span>95%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>SIEM & SOC (Wazuh/Splunk)</span><span>90%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>ISO 27001 / NIST Framework</span><span>85%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Análisis de malware</span><span>80%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:80%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.4rem">
+          <span class="skill-tag">CEH</span>
+          <span class="skill-tag">OSCP</span>
+          <span class="skill-tag">CompTIA Security+</span>
+          <span class="skill-tag">LFPDPPP</span>
+        </div>
+      </div>
+
+      <!-- Líder de Desarrollo -->
+      <div class="conocimiento-card">
+        <div class="k-header">
+          <div class="k-icon b">⚙️</div>
+          <div>
+            <div class="k-role">Líder de Desarrollo de Sistemas</div>
+            <h4>José Ramírez</h4>
+          </div>
+        </div>
+        <div class="skill-bar-list">
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Python / FastAPI / Django</span><span>93%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:93%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>.NET Core / C#</span><span>88%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>React.js / Next.js</span><span>85%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>PostgreSQL / MongoDB</span><span>82%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:82%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.4rem">
+          <span class="skill-tag">AWS Certified</span>
+          <span class="skill-tag">Docker/K8s</span>
+          <span class="skill-tag">Scrum Master</span>
+          <span class="skill-tag">CFDI 4.0</span>
+        </div>
+      </div>
+
+      <!-- Soporte & Redes -->
+      <div class="conocimiento-card">
+        <div class="k-header">
+          <div class="k-icon c">🖥️</div>
+          <div>
+            <div class="k-role">Soporte Técnico & Redes</div>
+            <h4>María González</h4>
+          </div>
+        </div>
+        <div class="skill-bar-list">
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Cisco IOS / Switching</span><span>90%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Windows Server / Active Directory</span><span>87%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:87%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Helpdesk / Ticketing (ITIL)</span><span>92%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:92%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>VPNs / Firewall / MikroTik</span><span>80%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:80%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.4rem">
+          <span class="skill-tag">CCNA</span>
+          <span class="skill-tag">ITIL v4</span>
+          <span class="skill-tag">CompTIA A+</span>
+          <span class="skill-tag">Microsoft MCP</span>
+        </div>
+      </div>
+
+      <!-- Apps Móvil & Web -->
+      <div class="conocimiento-card">
+        <div class="k-header">
+          <div class="k-icon d">📲</div>
+          <div>
+            <div class="k-role">Desarrollo Apps Móvil & Web</div>
+            <h4>Alejandro Mora</h4>
+          </div>
+        </div>
+        <div class="skill-bar-list">
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Flutter / Dart</span><span>91%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:91%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>React Native</span><span>88%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Firebase / Supabase</span><span>85%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>PWA / SEO técnico</span><span>80%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:80%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.4rem">
+          <span class="skill-tag">Google Flutter Dev</span>
+          <span class="skill-tag">Apple Dev Program</span>
+          <span class="skill-tag">Play Console</span>
+        </div>
+      </div>
+
+      <!-- Taller & Hardware -->
+      <div class="conocimiento-card">
+        <div class="k-header">
+          <div class="k-icon e">🔧</div>
+          <div>
+            <div class="k-role">Taller & Reparación Hardware</div>
+            <h4>Patricia Castro</h4>
+          </div>
+        </div>
+        <div class="skill-bar-list">
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Microsoldar / JTAG</span><span>90%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Reparación iPhone (pantalla/batería)</span><span>95%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Samsung / Android hardware</span><span>90%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Recuperación de datos</span><span>78%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:78%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.4rem">
+          <span class="skill-tag">Certificado iFixit</span>
+          <span class="skill-tag">Samsung ASC</span>
+          <span class="skill-tag">ESD Certified</span>
+        </div>
+      </div>
+
+      <!-- UX/UI -->
+      <div class="conocimiento-card">
+        <div class="k-header">
+          <div class="k-icon f">🎨</div>
+          <div>
+            <div class="k-role">UX/UI Design & Branding</div>
+            <h4>Luis Vargas</h4>
+          </div>
+        </div>
+        <div class="skill-bar-list">
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Figma / Prototyping</span><span>94%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:94%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>UX Research / Testing</span><span>85%</span></div>
+            <div class="sb-track"><div class="sb-fill g2" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>Identidad visual / Branding</span><span>90%</span></div>
+            <div class="sb-track"><div class="sb-fill g3" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="sb-label"><span>HTML/CSS front-end</span><span>75%</span></div>
+            <div class="sb-track"><div class="sb-fill g1" style="--w:75%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.4rem">
+          <span class="skill-tag">Google UX Design</span>
+          <span class="skill-tag">Interaction Design</span>
+          <span class="skill-tag">Adobe CC</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── ★ INFRAESTRUCTURA TÉCNICA (Equipos + Ancho de Banda) ─── -->
+<section id="infraestructura">
+  <div class="container">
+    <p class="section-label reveal">Equipos & conectividad</p>
+    <h2 class="section-title reveal reveal-delay-1">Características técnicas<br>de nuestra <em>infraestructura</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Especificaciones de los equipos de cómputo, tipo de ancho de banda y los Mbps contratados para garantizar operaciones sin interrupciones.</p>
+
+    <!-- hero stats -->
+    <div class="infra-hero reveal" style="margin-bottom:2rem">
+      <div class="infra-stat">
+        <div class="is-num">8</div>
+        <div class="is-label">Workstations de alto rendimiento</div>
+      </div>
+      <div class="infra-stat">
+        <div class="is-num">1 Gbps</div>
+        <div class="is-label">Ancho de banda simétrico</div>
+      </div>
+      <div class="infra-stat">
+        <div class="is-num">99.9%</div>
+        <div class="is-label">SLA de conectividad garantizado</div>
+      </div>
+    </div>
+
+    <!-- equipos -->
+    <div class="equipo-grid stagger-children">
+      <div class="equipo-card">
+        <h4>🖥️ Workstations — Ciberseguridad & Desarrollo</h4>
+        <div class="spec-row"><span>Procesador</span><span>Intel Core i9-13900K / AMD Ryzen 9 7900X</span></div>
+        <div class="spec-row"><span>RAM</span><span>64 GB DDR5 5600 MHz (2 × 32 GB)</span></div>
+        <div class="spec-row"><span>Almacenamiento</span><span>2 TB NVMe SSD Gen 4 + 4 TB HDD</span></div>
+        <div class="spec-row"><span>GPU</span><span>NVIDIA RTX 4070 (12 GB VRAM)</span></div>
+        <div class="spec-row"><span>Monitor</span><span>2 × Dell 27" 2K IPS (dual)</span></div>
+        <div class="spec-row"><span>SO</span><span>Kali Linux / Windows 11 Pro (dual boot)</span></div>
+        <div class="spec-row"><span>Cantidad</span><span>3 unidades</span></div>
+      </div>
+      <div class="equipo-card">
+        <h4>💻 Laptops — Soporte en Campo & Taller</h4>
+        <div class="spec-row"><span>Modelo</span><span>Lenovo ThinkPad X1 Carbon Gen 11</span></div>
+        <div class="spec-row"><span>Procesador</span><span>Intel Core i7-1365U (13ª gen)</span></div>
+        <div class="spec-row"><span>RAM</span><span>32 GB LPDDR5 5200 MHz</span></div>
+        <div class="spec-row"><span>Almacenamiento</span><span>1 TB NVMe SSD Gen 4</span></div>
+        <div class="spec-row"><span>Pantalla</span><span>14" WUXGA IPS Anti-glare</span></div>
+        <div class="spec-row"><span>Batería</span><span>57 Wh — hasta 15 hrs</span></div>
+        <div class="spec-row"><span>Cantidad</span><span>5 unidades</span></div>
+      </div>
+      <div class="equipo-card">
+        <h4>🗄️ Servidor Local — NAS & Virtualización</h4>
+        <div class="spec-row"><span>Modelo</span><span>Dell PowerEdge T550</span></div>
+        <div class="spec-row"><span>Procesador</span><span>2 × Intel Xeon Silver 4314 (32 cores)</span></div>
+        <div class="spec-row"><span>RAM</span><span>256 GB ECC DDR4 3200 MHz</span></div>
+        <div class="spec-row"><span>Almacenamiento</span><span>RAID 10 — 8 × 4 TB SAS + 2 NVMe cache</span></div>
+        <div class="spec-row"><span>Red</span><span>4 × Ethernet 1 GbE + 2 × 10 GbE SFP+</span></div>
+        <div class="spec-row"><span>Hipervisor</span><span>VMware ESXi 8 / Proxmox VE</span></div>
+        <div class="spec-row"><span>Cantidad</span><span>1 unidad</span></div>
+      </div>
+      <div class="equipo-card">
+        <h4>📡 Red & Networking</h4>
+        <div class="spec-row"><span>Switch Core</span><span>Cisco Catalyst 9200L (24 puertos PoE+)</span></div>
+        <div class="spec-row"><span>Router</span><span>MikroTik CCR2004-16G (Dual WAN)</span></div>
+        <div class="spec-row"><span>Firewall</span><span>Fortinet FortiGate 60F (NGFW + IPS)</span></div>
+        <div class="spec-row"><span>Wi-Fi</span><span>Ubiquiti UniFi AP WiFi 6 Pro × 3</span></div>
+        <div class="spec-row"><span>UPS</span><span>APC Smart-UPS 1500 VA (15 min autonomía)</span></div>
+        <div class="spec-row"><span>Rack</span><span>APC 12U open frame con PDU</span></div>
+      </div>
+    </div>
+
+    <!-- Ancho de banda -->
+    <div class="banda-section reveal">
+      <h4>📶 Ancho de banda — Tipo y Capacidad Contratada</h4>
+      <div class="banda-grid">
+        <div class="banda-tipo">
+          <span class="bt-badge sincrono">Simétrico</span>
+          <div class="bt-title">Fibra óptica simétrica (Sincrona)</div>
+          <div class="bt-desc">La velocidad de subida es igual a la de bajada. Ideal para empresas tech que deben enviar datos grandes a clientes, hacer videoconferencias y usar servicios cloud de forma intensa.</div>
+          <div class="bt-mbps">1,000 <span>Mbps ↑↓</span></div>
+          <ul class="bt-pros">
+            <li>Upload = Download — crítico para backups cloud</li>
+            <li>SLA 99.9% con soporte empresarial 24/7</li>
+            <li>IP pública fija incluida</li>
+            <li>Latencia &lt; 5 ms hacia CDMX core</li>
+          </ul>
+        </div>
+        <div class="banda-tipo">
+          <span class="bt-badge asincrono">Asimétrico</span>
+          <div class="bt-title">Respaldo — Fibra óptica asimétrica</div>
+          <div class="bt-desc">Línea de respaldo con mayor descarga que subida. Se activa automáticamente con failover. Garantiza continuidad de servicio ante fallos de la línea principal.</div>
+          <div class="bt-mbps">300/100 <span>Mbps ↓/↑</span></div>
+          <ul class="bt-pros">
+            <li>Failover automático &lt; 30 seg</li>
+            <li>Diferente proveedor (Telmex / Izzi)</li>
+            <li>Redundancia geográfica de ruta</li>
+            <li>Costo reducido como backup</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:1.2rem; background:rgba(91,164,212,.06); border-radius:var(--r); padding:1rem 1.3rem; border:1px solid var(--border)">
+        <strong style="color:var(--blue2)">🎯 Proveedor recomendado:</strong>
+        <span style="color:var(--text2); font-size:.9rem"> Totalplay Empresarial o Axtel para la línea principal simétrica 1 Gbps (~$3,500 MXN/mes). Telmex Infinitum Empresarial 300 Mbps como respaldo (~$1,800 MXN/mes). Total conectividad: <strong style="color:var(--text)">$5,300 MXN/mes</strong>.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ─── PLAN DE NEGOCIO ─── -->
 <section id="plan">
   <div class="container">
@@ -1516,7 +2380,7 @@
 
     <div class="plan-grid stagger-children">
       <div class="plan-card">
-        <h4><span class="ico">💰</span> Inversión Inicial</h4>
+        <h4><span>💰</span> Inversión Inicial</h4>
         <div class="plan-row"><span>Equipos y hardware</span><span>$120,000</span></div>
         <div class="plan-row"><span>Software y licencias</span><span>$45,000</span></div>
         <div class="plan-row"><span>Adecuación de local</span><span>$80,000</span></div>
@@ -1525,7 +2389,7 @@
         <div class="plan-row"><span class="highlight-val">Total inversión</span><span class="highlight-val">$420,000</span></div>
       </div>
       <div class="plan-card">
-        <h4><span class="ico">👥</span> Nómina Mensual</h4>
+        <h4><span>👥</span> Nómina Mensual</h4>
         <div class="plan-row"><span>CEO & Ciberseguridad</span><span>$25,000</span></div>
         <div class="plan-row"><span>Líder de Desarrollo</span><span>$22,000</span></div>
         <div class="plan-row"><span>Apps Móvil & Web</span><span>$20,000</span></div>
@@ -1535,17 +2399,17 @@
         <div class="plan-row"><span class="highlight-val">Total + IMSS (~30%)</span><span class="highlight-val">$153,400</span></div>
       </div>
       <div class="plan-card">
-        <h4><span class="ico">🏢</span> Gastos Fijos/Mes</h4>
+        <h4><span>🏢</span> Gastos Fijos/Mes</h4>
         <div class="plan-row"><span>Renta de local</span><span>$15,000</span></div>
-        <div class="plan-row"><span>Internet fibra empresarial</span><span>$3,500</span></div>
+        <div class="plan-row"><span>Internet fibra empresarial</span><span>$5,300</span></div>
         <div class="plan-row"><span>Electricidad</span><span>$2,500</span></div>
         <div class="plan-row"><span>Hosting & Cloud</span><span>$4,200</span></div>
         <div class="plan-row"><span>Marketing digital</span><span>$5,000</span></div>
         <div class="plan-row"><span>Contabilidad</span><span>$3,000</span></div>
-        <div class="plan-row"><span class="highlight-val">Total fijos</span><span class="highlight-val">$33,200</span></div>
+        <div class="plan-row"><span class="highlight-val">Total fijos</span><span class="highlight-val">$35,000</span></div>
       </div>
       <div class="plan-card">
-        <h4><span class="ico">📈</span> Mercado Objetivo</h4>
+        <h4><span>📈</span> Mercado Objetivo</h4>
         <div class="plan-row"><span>Pequeñas empresas CDMX</span><span>Primario</span></div>
         <div class="plan-row"><span>Medianas empresas</span><span>Secundario</span></div>
         <div class="plan-row"><span>Instituciones educativas</span><span>Especializado</span></div>
@@ -1560,7 +2424,203 @@
   </div>
 </section>
 
-<!-- ─── INFRAESTRUCTURA ─── -->
+<!-- ─── ★ RENTA Y SERVICIOS ─── -->
+<section id="renta">
+  <div class="container">
+    <p class="section-label reveal">Costos fijos mensuales</p>
+    <h2 class="section-title reveal reveal-delay-1">Pago de renta<br>y <em>servicios</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Desglose detallado de todos los gastos fijos mensuales del local y los servicios necesarios para la operación continua de Ciber Monkey.</p>
+
+    <div class="renta-grid stagger-children">
+      <!-- Renta -->
+      <div class="renta-card">
+        <h4>🏠 Renta del Local</h4>
+        <div class="renta-row"><span>Renta mensual base</span><span>$12,000</span></div>
+        <div class="renta-row"><span>Mantenimiento del edificio</span><span>$1,500</span></div>
+        <div class="renta-row"><span>Seguridad (vigilancia)</span><span>$800</span></div>
+        <div class="renta-row"><span>Depósito inicial (1 mes)</span><span>$12,000 *único</span></div>
+        <div class="renta-row"><span>Aval / fianza notarial</span><span>$3,000 *único</span></div>
+        <div class="renta-row" style="font-weight:700; color:var(--blue2)"><span>Renta mensual recurrente</span><span>$14,300</span></div>
+      </div>
+
+      <!-- Servicios básicos -->
+      <div class="renta-card">
+        <h4>⚡ Servicios Básicos</h4>
+        <div class="renta-row"><span>Electricidad (CFE)</span><span>$2,500</span></div>
+        <div class="renta-row"><span>Agua potable</span><span>$350</span></div>
+        <div class="renta-row"><span>Gas L.P. (cocina/calefacción)</span><span>$400</span></div>
+        <div class="renta-row"><span>Limpieza / intendencia</span><span>$1,200</span></div>
+        <div class="renta-row"><span>Residuos electrónicos (RAEE)</span><span>$300</span></div>
+        <div class="renta-row" style="font-weight:700; color:var(--blue2)"><span>Subtotal servicios básicos</span><span>$4,750</span></div>
+      </div>
+
+      <!-- Conectividad & Cloud -->
+      <div class="renta-card">
+        <h4>🌐 Conectividad & Tecnología</h4>
+        <div class="renta-row"><span>Internet fibra 1 Gbps (principal)</span><span>$3,500</span></div>
+        <div class="renta-row"><span>Internet respaldo 300 Mbps</span><span>$1,800</span></div>
+        <div class="renta-row"><span>AWS / Google Cloud</span><span>$2,800</span></div>
+        <div class="renta-row"><span>Microsoft 365 Business (6 usuarios)</span><span>$1,800</span></div>
+        <div class="renta-row"><span>Dominios + SSL + CDN</span><span>$400</span></div>
+        <div class="renta-row" style="font-weight:700; color:var(--blue2)"><span>Subtotal conectividad</span><span>$10,300</span></div>
+      </div>
+
+      <!-- Seguros & Legal -->
+      <div class="renta-card">
+        <h4>📋 Seguros & Servicios Profesionales</h4>
+        <div class="renta-row"><span>Seguro de responsabilidad civil (E&O)</span><span>$1,800</span></div>
+        <div class="renta-row"><span>Seguro de equipo de cómputo</span><span>$900</span></div>
+        <div class="renta-row"><span>Contador externo (SAT/IMSS)</span><span>$3,000</span></div>
+        <div class="renta-row"><span>Asesoría legal mensual</span><span>$1,500</span></div>
+        <div class="renta-row" style="font-weight:700; color:var(--blue2)"><span>Subtotal seguros/legal</span><span>$7,200</span></div>
+      </div>
+
+      <!-- Marketing -->
+      <div class="renta-card">
+        <h4>📣 Marketing & Ventas</h4>
+        <div class="renta-row"><span>Google Ads / Meta Ads</span><span>$3,000</span></div>
+        <div class="renta-row"><span>CRM (HubSpot Starter)</span><span>$800</span></div>
+        <div class="renta-row"><span>Material impreso / merchandising</span><span>$500</span></div>
+        <div class="renta-row"><span>Eventos / networking</span><span>$700</span></div>
+        <div class="renta-row" style="font-weight:700; color:var(--blue2)"><span>Subtotal marketing</span><span>$5,000</span></div>
+      </div>
+
+      <!-- Insumos -->
+      <div class="renta-card">
+        <h4>🔩 Insumos & Consumibles</h4>
+        <div class="renta-row"><span>Refacciones taller celulares</span><span>$5,000</span></div>
+        <div class="renta-row"><span>Papelería y oficina</span><span>$600</span></div>
+        <div class="renta-row"><span>Herramientas / equipo menor</span><span>$800</span></div>
+        <div class="renta-row"><span>Café / consumibles empleados</span><span>$400</span></div>
+        <div class="renta-row" style="font-weight:700; color:var(--blue2)"><span>Subtotal insumos</span><span>$6,800</span></div>
+      </div>
+    </div>
+
+    <!-- Total -->
+    <div class="renta-total reveal">
+      <div>
+        <div class="rt-label">💳 Total gastos fijos mensuales (sin nómina)</div>
+        <div class="rt-val">$48,350 MXN</div>
+        <div class="rt-note">Incluye renta, servicios, tecnología, seguros, marketing e insumos</div>
+      </div>
+      <div>
+        <div class="rt-label">Total con nómina completa</div>
+        <div class="rt-val">$201,750 MXN</div>
+        <div class="rt-note">+ Nómina $153,400 (con IMSS 30%)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ★ FINANCIAMIENTO / PRÉSTAMO ─── -->
+<section id="financiamiento">
+  <div class="container">
+    <p class="section-label reveal">Inversión inicial</p>
+    <h2 class="section-title reveal reveal-delay-1">¿Dónde solicitar el<br><em>préstamo inicial</em>?</h2>
+    <p class="section-sub reveal reveal-delay-2">La inversión total para arrancar Ciber Monkey es de $420,000 MXN. Aquí te mostramos las mejores opciones para conseguirlo en México.</p>
+
+    <!-- monto -->
+    <div class="prestamo-hero reveal">
+      <p>Inversión inicial requerida</p>
+      <div class="prestamo-amount">$420,000 <span>MXN</span></div>
+      <p>Equipos · Software · Adecuación · Capital de trabajo · Constitución legal</p>
+    </div>
+
+    <div class="prestamo-grid stagger-children">
+      <!-- NAFIN -->
+      <div class="prestamo-card featured">
+        <h4>Nacional Financiera (NAFIN)</h4>
+        <div class="pc-tipo">Banca de desarrollo — Gobierno federal</div>
+        <div class="pc-tasa">12–15% <span>anual</span></div>
+        <ul>
+          <li>Programa Jóvenes Emprendedores</li>
+          <li>Hasta $500,000 MXN sin garantía hipotecaria</li>
+          <li>Plazo 12 a 48 meses</li>
+          <li>Requiere plan de negocios validado</li>
+          <li>Puede combinarse con apoyo INADEM</li>
+          <li>Portal: <strong>nafin.com.mx</strong></li>
+        </ul>
+      </div>
+
+      <!-- IMSS / STPS -->
+      <div class="prestamo-card">
+        <h4>Fondo PYME / SE</h4>
+        <div class="pc-tipo">Secretaría de Economía</div>
+        <div class="pc-tasa">0–8% <span>anual</span></div>
+        <ul>
+          <li>Apoyos no reembolsables (hasta 30%)</li>
+          <li>Complemento de crédito con bancos socios</li>
+          <li>Prioridad a empresas tecnológicas</li>
+          <li>Requiere registro como empresa formal</li>
+          <li>Portal: <strong>gob.mx/se</strong></li>
+        </ul>
+      </div>
+
+      <!-- Banco comercial -->
+      <div class="prestamo-card">
+        <h4>Crédito PyME — Bancos comerciales</h4>
+        <div class="pc-tipo">BBVA / Santander / Banorte / HSBC</div>
+        <div class="pc-tasa">18–28% <span>anual</span></div>
+        <ul>
+          <li>Crédito empresarial hasta $1M MXN</li>
+          <li>Requiere historial crediticio (Buró)</li>
+          <li>Colateral: equipos o aval personal</li>
+          <li>Respuesta en 5–15 días hábiles</li>
+          <li>Tarjeta empresarial disponible</li>
+        </ul>
+      </div>
+
+      <!-- Crowdfunding -->
+      <div class="prestamo-card">
+        <h4>Crowdfunding / Ángeles inversores</h4>
+        <div class="pc-tipo">Fondeadora · Prestadero · Angel Ventures</div>
+        <div class="pc-tasa">10–22% <span>anual o equity</span></div>
+        <ul>
+          <li>Plataformas reguladas por CNBV</li>
+          <li>Opción de deuda o capital (equity)</li>
+          <li>Más flexible que banca tradicional</li>
+          <li>Ideal si tienes tracción inicial</li>
+          <li>Fondeadora: fondeadora.com</li>
+        </ul>
+      </div>
+
+      <!-- Recursos propios -->
+      <div class="prestamo-card">
+        <h4>Aportación de socios / Recursos propios</h4>
+        <div class="pc-tipo">Capital semilla — Bootstrapping</div>
+        <div class="pc-tasa">0% <span>sin intereses</span></div>
+        <ul>
+          <li>Sin deuda ni intereses</li>
+          <li>Control total del negocio</li>
+          <li>Aportación mínima S.A. de C.V.: $50,000</li>
+          <li>Puede cubrir 30–50% de la inversión</li>
+          <li>Combinable con cualquier crédito</li>
+        </ul>
+      </div>
+
+      <!-- Incubadoras -->
+      <div class="prestamo-card">
+        <h4>Incubadoras tech / IPN / UNAM</h4>
+        <div class="pc-tipo">Centro de innovación — Ecosistema emprendedor</div>
+        <div class="pc-tasa">Variable <span>equity / sin costo</span></div>
+        <ul>
+          <li>IPN Centro de Incubación de Empresas</li>
+          <li>UNAM — Programa de Emprendimiento</li>
+          <li>Fondos CONACYT (innovación tech)</li>
+          <li>Mentoría + red de contactos incluida</li>
+          <li>Ideal por estar en CECyT 13</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prestamo-nota reveal">
+      <strong style="color:var(--teal)">💡 Estrategia recomendada:</strong>
+      <span style="color:var(--text2); font-size:.9rem"> Combinar recursos propios de los socios ($120,000) + préstamo NAFIN ($200,000) + apoyo Fondo PYME no reembolsable ($100,000). Esto cubre los $420,000 con la menor carga financiera posible y sin comprometer la participación accionaria.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STACK TECNOLÓGICO ─── -->
 <section id="tecnico">
   <div class="container">
     <p class="section-label reveal">Infraestructura</p>
@@ -1594,7 +2654,7 @@
   </div>
 </section>
 
-<!-- ─── INVERSIÓN / ROI ─── -->
+<!-- ─── ROI / INVERSIÓN ─── -->
 <section id="inversion">
   <div class="container">
     <p class="section-label reveal">Proyecciones financieras</p>
@@ -1625,13 +2685,13 @@
       <div>
         <div class="metric-card reveal" style="margin-bottom:1.2rem">
           <h4>💸 Costos mensuales totales</h4>
-          <div class="big-metric orange">$270,200</div>
-          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Nómina ($237,000) + Fijos ($33,200)</p>
+          <div class="big-metric orange">$201,750</div>
+          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Nómina ($153,400) + Fijos ($48,350)</p>
         </div>
         <div class="metric-card reveal reveal-delay-1" style="margin-bottom:1.2rem">
           <h4>📈 EBITDA mensual (año 1)</h4>
-          <div class="big-metric green">$2,300</div>
-          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Margen neto inicial del 0.8% — break-even</p>
+          <div class="big-metric green">~$70,750</div>
+          <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Margen bruto estimado ~26% en escenario optimista</p>
         </div>
         <div class="metric-card reveal reveal-delay-2">
           <h4>⏱️ Recuperación de inversión</h4>
@@ -1640,6 +2700,146 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── ★ RECUPERACIÓN DE INVERSIÓN ─── -->
+<section id="recuperacion">
+  <div class="container">
+    <p class="section-label reveal">Retorno de inversión</p>
+    <h2 class="section-title reveal reveal-delay-1">¿En cuánto tiempo<br>empezamos a ver <em>ganancias</em>?</h2>
+    <p class="section-sub reveal reveal-delay-2">Hoja de ruta financiera mes a mes. Con disciplina comercial y los contratos mínimos indicados, Ciber Monkey recupera su inversión y entra en zona de ganancias netas en 18–24 meses.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start">
+      <!-- Timeline -->
+      <div class="timeline-recovery reveal">
+
+        <div class="tl-item">
+          <div class="tl-dot">1</div>
+          <div class="tl-month">Mes 1–2</div>
+          <div class="tl-title">🚀 Arranque y primeros clientes</div>
+          <div class="tl-desc">Apertura del local, puesta en marcha del taller de celulares (flujo inmediato). Primeras cotizaciones de ciberseguridad y soporte técnico. Gastos superan ingresos.</div>
+          <span class="tl-metric">Ingresos estimados: $60,000/mes</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">2</div>
+          <div class="tl-month">Mes 3–4</div>
+          <div class="tl-title">📋 Primeros contratos recurrentes</div>
+          <div class="tl-desc">Cierre de 2–3 contratos de soporte técnico y 1 proyecto de desarrollo. El taller alcanza volumen estable. Déficit se reduce significativamente.</div>
+          <span class="tl-metric">Ingresos estimados: $130,000/mes</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">3</div>
+          <div class="tl-month">Mes 5–6</div>
+          <div class="tl-title">⚖️ Break-even operativo</div>
+          <div class="tl-desc">Ingresos recurrentes cubren todos los gastos fijos y nómina. Se firma primer contrato de ciberseguridad. La empresa deja de consumir capital de trabajo.</div>
+          <span class="tl-metric" style="background:rgba(91,188,186,.15);color:var(--teal);border-color:rgba(91,188,186,.3)">🎯 Break-even alcanzado</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">4</div>
+          <div class="tl-month">Mes 7–12</div>
+          <div class="tl-title">📈 Crecimiento sostenido</div>
+          <div class="tl-desc">Base de clientes consolidada. Inicio de pago de préstamos. Primeras utilidades netas pequeñas. Reinversión en marketing y equipos adicionales.</div>
+          <span class="tl-metric">Ingresos estimados: $200,000/mes</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">5</div>
+          <div class="tl-month">Año 2</div>
+          <div class="tl-title">💰 Recuperación total + Ganancias</div>
+          <div class="tl-desc">La inversión inicial queda totalmente recuperada. Margen neto del 15–22%. Posibilidad de expandir equipo o abrir segunda ubicación.</div>
+          <span class="tl-metric" style="background:rgba(91,164,212,.15);color:var(--blue2);border-color:rgba(91,164,212,.3)">✅ Ganancia neta plena</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">6</div>
+          <div class="tl-month">Año 3+</div>
+          <div class="tl-title">🏆 Escala y consolidación</div>
+          <div class="tl-desc">Búsqueda de contratos gubernamentales, licitaciones y expansión de la línea de ciberseguridad. ROI sostenido del 22–30% anual.</div>
+          <span class="tl-metric" style="background:rgba(123,143,212,.15);color:var(--indigo);border-color:rgba(123,143,212,.3)">ROI proyectado: 22–30%</span>
+        </div>
+
+      </div>
+
+      <!-- Resumen de métricas -->
+      <div class="reveal reveal-delay-2">
+        <div style="background:linear-gradient(135deg,var(--blue3),var(--teal));border-radius:var(--r2);padding:2rem;margin-bottom:1.5rem;color:#fff">
+          <div style="font-size:.8rem;opacity:.7;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem">Resumen financiero clave</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+            <div>
+              <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:800;letter-spacing:-.03em;line-height:1">$420k</div>
+              <div style="font-size:.78rem;opacity:.75;margin-top:.2rem">Inversión inicial total</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:800;letter-spacing:-.03em;line-height:1">Mes 6</div>
+              <div style="font-size:.78rem;opacity:.75;margin-top:.2rem">Break-even operativo</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:800;letter-spacing:-.03em;line-height:1">18–24</div>
+              <div style="font-size:.78rem;opacity:.75;margin-top:.2rem">Meses para recuperar inversión</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:800;letter-spacing:-.03em;line-height:1">22–30%</div>
+              <div style="font-size:.78rem;opacity:.75;margin-top:.2rem">ROI anual año 3+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supuestos clave -->
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:1.8rem;margin-bottom:1.2rem">
+          <h4 style="font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--border)">📌 Supuestos del modelo</h4>
+          <ul style="list-style:none">
+            <li style="color:var(--text2);font-size:.85rem;padding:.35rem 0;border-bottom:1px solid rgba(91,164,212,.07);display:flex;align-items:flex-start;gap:.5rem"><span style="color:var(--teal);font-weight:700">✓</span> 2 contratos ciberseguridad desde mes 4</li>
+            <li style="color:var(--text2);font-size:.85rem;padding:.35rem 0;border-bottom:1px solid rgba(91,164,212,.07);display:flex;align-items:flex-start;gap:.5rem"><span style="color:var(--teal);font-weight:700">✓</span> 6–8 contratos soporte técnico activos mes 6</li>
+            <li style="color:var(--text2);font-size:.85rem;padding:.35rem 0;border-bottom:1px solid rgba(91,164,212,.07);display:flex;align-items:flex-start;gap:.5rem"><span style="color:var(--teal);font-weight:700">✓</span> 1 proyecto desarrollo $35k+ por mes desde inicio</li>
+            <li style="color:var(--text2);font-size:.85rem;padding:.35rem 0;border-bottom:1px solid rgba(91,164,212,.07);display:flex;align-items:flex-start;gap:.5rem"><span style="color:var(--teal);font-weight:700">✓</span> Taller celulares: mínimo 5 reparaciones/día</li>
+            <li style="color:var(--text2);font-size:.85rem;padding:.35rem 0;display:flex;align-items:flex-start;gap:.5rem"><span style="color:var(--teal);font-weight:700">✓</span> Capital de trabajo cubre 6 meses de operación</li>
+          </ul>
+        </div>
+
+        <!-- Riesgos -->
+        <div style="background:rgba(91,164,212,.06);border:1px solid var(--border);border-radius:var(--r2);padding:1.8rem">
+          <h4 style="font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--border)">⚠️ Factores de riesgo y mitigación</h4>
+          <div style="display:flex;flex-direction:column;gap:.7rem">
+            <div style="font-size:.83rem">
+              <strong style="color:var(--text)">Captación lenta de clientes</strong>
+              <div style="color:var(--text2)">Mitigación: taller de celulares genera caja desde día 1, reduciendo la dependencia de contratos B2B en los primeros meses.</div>
+            </div>
+            <div style="font-size:.83rem;padding-top:.7rem;border-top:1px solid rgba(91,164,212,.08)">
+              <strong style="color:var(--text)">Alta competencia en desarrollo web</strong>
+              <div style="color:var(--text2)">Mitigación: diferenciación vía ciberseguridad integrada al desarrollo — propuesta de valor única en el segmento PyME.</div>
+            </div>
+            <div style="font-size:.83rem;padding-top:.7rem;border-top:1px solid rgba(91,164,212,.08)">
+              <strong style="color:var(--text)">Rotación de talento técnico</strong>
+              <div style="color:var(--text2)">Mitigación: contratos con cláusula de no competencia, bonos por permanencia y plan de carrera definido.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards resumen -->
+    <div class="recovery-summary stagger-children" style="margin-top:3rem">
+      <div class="rs-card">
+        <div class="rs-icon">🎯</div>
+        <div class="rs-val blue">Mes 6</div>
+        <div class="rs-label">Break-even operativo</div>
+      </div>
+      <div class="rs-card">
+        <div class="rs-icon">💰</div>
+        <div class="rs-val teal">18–24 m</div>
+        <div class="rs-label">Recuperación total de inversión</div>
+      </div>
+      <div class="rs-card">
+        <div class="rs-icon">📈</div>
+        <div class="rs-val indigo">22–30%</div>
+        <div class="rs-label">ROI anual sostenido (año 3+)</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1716,6 +2916,88 @@
   </div>
 </section>
 
+<!-- ─── ★ ASPECTOS CONTABLES DETALLADOS ─── -->
+<section id="contable">
+  <div class="container">
+    <p class="section-label reveal">Obligaciones contables</p>
+    <h2 class="section-title reveal reveal-delay-1">Aspectos contables<br>a <em>considerar</em></h2>
+    <p class="section-sub reveal reveal-delay-2">El cumplimiento fiscal y contable es crítico desde el primer día. Aquí están todas las obligaciones clave que Ciber Monkey debe gestionar correctamente.</p>
+
+    <div class="contable-grid stagger-children">
+      <div class="contable-block">
+        <h4>💰 Impuestos mensuales obligatorios</h4>
+        <ul class="contable-list">
+          <li>IVA trasladado (16%) en cada factura emitida <span class="tax-badge iva">IVA</span></li>
+          <li>IVA acreditable por compras y gastos con factura válida</li>
+          <li>ISR provisional mensual (estimado sobre utilidad) <span class="tax-badge isr">ISR</span></li>
+          <li>Retenciones de ISR a empleados (nómina timbrada SAT)</li>
+          <li>Impuesto sobre Nómina estatal CDMX (~3% de nómina bruta) <span class="tax-badge nom">NOM</span></li>
+          <li>IMSS: cuotas obrero-patronales (~30% adicional al salario bruto)</li>
+          <li>INFONAVIT: aportación patronal del 5% del salario integrado</li>
+        </ul>
+      </div>
+
+      <div class="contable-block">
+        <h4>📁 Registros y documentación obligatoria</h4>
+        <ul class="contable-list">
+          <li>Contabilidad electrónica en CONTPAQi o Aspel COI (catálogo SAT)</li>
+          <li>Balanza de comprobación enviada al SAT cada mes (días 25–27)</li>
+          <li>Pólizas de diario, mayor y balanza con UUID de cada CFDI</li>
+          <li>Control de inventario de activos fijos con depreciación fiscal</li>
+          <li>Expediente digital de empleados (contratos, CURP, RFC, IMSS)</li>
+          <li>Conservar CFDI recibidos y emitidos por al menos 5 años</li>
+          <li>Libro de actas de asamblea y cambios en accionistas</li>
+        </ul>
+      </div>
+
+      <div class="contable-block">
+        <h4>📅 Calendario fiscal — Fechas clave</h4>
+        <ul class="contable-list">
+          <li>Días 1–17 de cada mes: declaración provisional IVA + ISR</li>
+          <li>Día 17 de cada mes: pago de cuotas IMSS bimestral</li>
+          <li>Día 25 de cada mes: envío de contabilidad electrónica al SAT</li>
+          <li>Días 1–31 de marzo: declaración anual ISR (personas morales)</li>
+          <li>Enero de cada año: declaración informativa de sueldos (DIM)</li>
+          <li>Cada bimestre: pago de INFONAVIT (meses 1-2, 3-4, 5-6…)</li>
+        </ul>
+      </div>
+
+      <div class="contable-block">
+        <h4>🔢 Indicadores financieros a monitorear</h4>
+        <ul class="contable-list">
+          <li>Flujo de caja semanal — entradas vs salidas reales</li>
+          <li>Margen bruto por línea de servicio (meta: &gt;40% en cyber)</li>
+          <li>Cuentas por cobrar: meta máximo 30 días de crédito a clientes</li>
+          <li>EBITDA mensual y acumulado vs proyección</li>
+          <li>Costo de adquisición de cliente (CAC) vs valor de vida (LTV)</li>
+          <li>Ratio de liquidez corriente (activos / pasivos circulantes &gt;1.5)</li>
+          <li>ROI por proyecto de desarrollo: comparar cotizado vs ejecutado</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; background:linear-gradient(135deg,rgba(91,164,212,.08),rgba(91,188,186,.08)); border:1px solid var(--border); border-radius:var(--r2); padding:2rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem" class="reveal">
+      <div>
+        <h4 style="font-family:var(--font-head);font-weight:700;color:var(--text);margin-bottom:.8rem">🧮 Herramientas contables recomendadas</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+          <span class="skill-tag">CONTPAQi</span>
+          <span class="skill-tag">Aspel SAE</span>
+          <span class="skill-tag">Aspel NOI</span>
+          <span class="skill-tag">SAT Portal</span>
+          <span class="skill-tag">IDSE IMSS</span>
+          <span class="skill-tag">IMSS Digital</span>
+          <span class="skill-tag">Facturama API</span>
+          <span class="skill-tag">DIOT mensual</span>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-head);font-weight:700;color:var(--text);margin-bottom:.8rem">💡 Consejo de experto</h4>
+        <p style="color:var(--text2);font-size:.88rem;line-height:1.7">Contratar un contador con experiencia en empresas de tecnología desde el primer mes es esencial. El costo de $3,000/mes evita multas del SAT que pueden superar los $50,000 MXN por errores en CFDI o declaraciones extemporáneas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── CONTACTO ─── -->
 <section id="contacto">
   <div class="container">
@@ -1732,7 +3014,6 @@
             <div class="cval">cibermonos@gmail.com</div>
           </div>
         </a>
-
         <a href="https://wa.me/525529109404" class="contact-item reveal reveal-delay-3" target="_blank" rel="noopener">
           <div class="cico wa">💬</div>
           <div>
@@ -1740,7 +3021,6 @@
             <div class="cval">+52 55 2910 9404</div>
           </div>
         </a>
-
         <div class="contact-item reveal reveal-delay-4">
           <div class="cico loc">📍</div>
           <div>
@@ -1748,7 +3028,6 @@
             <div class="cval">CECyT 13 — Ing. Ricardo Flores Magón,<br>Ciudad de México</div>
           </div>
         </div>
-
         <div class="contact-item reveal reveal-delay-5">
           <div class="cico" style="background:rgba(91,164,212,.12)">🕐</div>
           <div>
@@ -1757,8 +3036,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Google Maps CECyT 13 -->
       <div class="reveal-zoom reveal-delay-2">
         <div class="map-wrap">
           <iframe
@@ -1780,7 +3057,12 @@
   <div class="footer-links">
     <a href="#servicios">Servicios</a>
     <a href="#equipo">Equipo</a>
+    <a href="#conocimientos">Técnicos</a>
+    <a href="#infraestructura">Infraestructura</a>
     <a href="#plan">Plan</a>
+    <a href="#renta">Renta</a>
+    <a href="#financiamiento">Préstamo</a>
+    <a href="#recuperacion">Recuperación</a>
     <a href="#legal">Legal</a>
     <a href="#contacto">Contacto</a>
   </div>
@@ -1792,7 +3074,7 @@
   <p style="margin-top:.5rem; opacity:.45; font-size:.78rem">© 2025 Ciber Monkey S.A. de C.V. — Todos los derechos reservados</p>
 </footer>
 
-<!-- ─── WhatsApp flotante ─── -->
+<!-- WhatsApp flotante -->
 <a href="https://wa.me/525529109404" class="wa-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
   <span class="wa-tooltip">¡Escríbenos por WhatsApp!</span>
   💬
@@ -1800,20 +3082,20 @@
 
 <!-- ─── SCRIPTS ─── -->
 <script>
-  /* ── Carousel con Ken Burns + progress bar ── */
+  /* ── Carousel ── */
   let current = 0;
   const slides = document.querySelectorAll('.carousel-slide');
   const dots   = document.querySelectorAll('.dot');
   const track  = document.getElementById('carouselTrack');
   const progressBar = document.getElementById('progress');
   const DURATION = 6000;
-  let timer, progressTimer, progressStart, progressWidth = 0;
+  let timer, progressStart;
 
   function updateProgress() {
     const elapsed = Date.now() - progressStart;
-    progressWidth = Math.min((elapsed / DURATION) * 100, 100);
-    progressBar.style.width = progressWidth + '%';
-    if (progressWidth < 100) requestAnimationFrame(updateProgress);
+    const w = Math.min((elapsed / DURATION) * 100, 100);
+    progressBar.style.width = w + '%';
+    if (w < 100) requestAnimationFrame(updateProgress);
   }
 
   function goSlide(n) {
@@ -1831,13 +3113,11 @@
 
   function resetTimer() {
     clearInterval(timer);
-    cancelAnimationFrame(progressTimer);
     progressBar.style.width = '0%';
     progressStart = Date.now();
     requestAnimationFrame(updateProgress);
     timer = setInterval(nextSlide, DURATION);
   }
-
   resetTimer();
 
   /* ── Navbar scroll ── */
@@ -1866,7 +3146,7 @@
         revealIO.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
 
   document.querySelectorAll(
     '.reveal, .reveal-left, .reveal-right, .reveal-zoom, .stagger-children, .stat-item'
@@ -1882,21 +3162,33 @@
         barIO.unobserve(e.target);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.2 });
 
   const roiWrap = document.querySelector('.roi-bar-wrap');
   if (roiWrap) barIO.observe(roiWrap.closest('.metric-card'));
 
-  /* ── Swipe touch support ── */
+  /* ── Skill bars animation ── */
+  const skillIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.sb-fill').forEach((fill, i) => {
+          setTimeout(() => fill.classList.add('active'), i * 100 + 200);
+        });
+        skillIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.conocimiento-card').forEach(card => skillIO.observe(card));
+
+  /* ── Touch swipe ── */
   let touchStartX = 0;
   document.getElementById('hero').addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
   document.getElementById('hero').addEventListener('touchend', e => {
     const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      diff > 0 ? nextSlide() : prevSlide();
-    }
+    if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
   }, { passive: true });
 
   /* ── Keyboard navigation ── */
